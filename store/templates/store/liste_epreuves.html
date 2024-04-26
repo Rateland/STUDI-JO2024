@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Les toutes nouvelles épreuves Olympiques !</h2>
+{% for epreuve in epreuves %}
+    <h3><a href="{{ epreuve.get_absolute_url }}">{{ epreuve.titre }}</a></h3>
+    <div></div>
+    {% if epreuve.illustration %}
+        <img src="{{ epreuve.illustration.url }}" alt="Illustration pour {{ epreuve.titre }}" style="max-width: 250px; max-height: 250px;"">
+    {% else %}
+        <p></p>
+    {% endif %}
+{% endfor %}
+{% endblock %}

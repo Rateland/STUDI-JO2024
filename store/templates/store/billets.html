@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>{{ billets.nom }}</h2>
+<div></div>
+<p>{{ billet.description}}</p>
+<h3>{{ billet.prix }}€</h3>
+<p>{{ billet.stock }} places encore disponible, prenez les vôtres !</p>
+<p>
+    <a href="{% url 'panier' billet.slug %}"">
+        Je veux ce billet
+    </a>
+</p>
+
+{% endblock %}

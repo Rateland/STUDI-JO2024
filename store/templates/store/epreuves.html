@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>{{ epreuve.titre }}</h2>
+<h3>Le {{ epreuve.date_epreuve }}</h3>
+<div></div>
+    {% if epreuve.illustration %}
+        <img src="{{ epreuve.illustration.url }}" alt="Illustration pour {{ epreuve.titre }}" style="max-width: 250px; max-height: 250px;"">
+    {% else %}
+        <p></p>
+    {% endif %}
+<div></div>
+<p>{{ epreuve.description}}</p>
+
+{% if offres %}
+    <h4>Billets Disponibles:</h4>
+    {% for offre in offres %}
+        <p>{{ offre.nom }}: {{ offre.stock }} places restantes.</p>
+    {% endfor %}
+{% else %}
+    <p>Actuellement, il n'y a aucun billet disponible.</p>
+{% endif %}
+
+{% endblock %}
