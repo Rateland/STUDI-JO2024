@@ -2,7 +2,7 @@
 
 {% block content %}
 <h2>Découvrez la magie des Jeux Olympiques</h2>
-<h3>Un voyage à travers le sport, l'histoire et la culture
+<p>Un voyage à travers le sport, l'histoire et la culture
     Les Jeux Olympiques, cet événement séculaire qui a captivé l’humanité à travers les âges, continuent de tisser des liens indélébiles entre les nations du monde entier.
     Nés dans l’Antiquité grecque, ces jeux ont été ressuscités à l’ère moderne par Pierre de Coubertin en 1896, avec un idéal de paix et d'excellence. Chaque édition des Jeux est une fresque qui raconte les exploits, les rêves et les aspirations des athlètes venant des quatre coins du globe.
     
@@ -12,7 +12,7 @@
     
     Les Jeux offrent également une scène incomparable pour découvrir les cultures du monde. Chaque ville hôte apporte sa couleur locale, son patrimoine et ses traditions au cœur de l’événement, enrichissant l'expérience olympique d’une dimension culturelle et festive.
     
-    En somme, les Jeux Olympiques ne sont pas juste une série d’épreuves sportives ; ils sont une célébration de l’humanité, de ses diversités et de son potentiel extraordinaire. Que vous soyez un passionné de sport, un amateur d'histoire, ou simplement en quête de moments d'exception, les Jeux Olympiques vous offrent un spectacle sans pareil, riche en émotions et en découvertes. Ne manquez pas l’occasion de faire partie de l'histoire et de vivre des émotions qui resteront gravées à jamais dans votre mémoire.</h3>
+    En somme, les Jeux Olympiques ne sont pas juste une série d’épreuves sportives ; ils sont une célébration de l’humanité, de ses diversités et de son potentiel extraordinaire. Que vous soyez un passionné de sport, un amateur d'histoire, ou simplement en quête de moments d'exception, les Jeux Olympiques vous offrent un spectacle sans pareil, riche en émotions et en découvertes. Ne manquez pas l’occasion de faire partie de l'histoire et de vivre des émotions qui resteront gravées à jamais dans votre mémoire.</p>
     <div></div>
     <a href="{% url 'liste_epreuves' %}"><h2>Les épreuves</h2></a>
 {% for epreuve in epreuves %}
@@ -25,10 +25,10 @@
     {% endif %}
 {% endfor %}
 
-<h2>Prenez vos places !</h2>
+<h2>Détail des offres - cliquez ici</h2>
 {% for offrebillet in billets %}
     <div></div>
-    <a href="{{ offrebillet.get_absolute_url }}"><p>Offre {{ offrebillet.nom }}</p></a>
+    <p><a href="{{ offrebillet.get_absolute_url }}">Offre {{ offrebillet.nom }}</a></p>
     
     <div></div>
 {% endfor %}

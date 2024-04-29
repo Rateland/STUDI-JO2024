@@ -25,9 +25,10 @@ class OffreBillet(models.Model):
     TYPE_OFFRE_CHOICES = [
         ('SOLO', 'Solo'),
         ('DUO', 'Duo'),
-        ['FAMILLE', 'Famille'],
+        ('FAMILLE', 'Famille'),
     ]
 
+    epreuve = models.ForeignKey(Epreuve, null=True, related_name='offres', on_delete=models.CASCADE, verbose_name="Épreuve associée")
     nom = models.CharField(max_length=100, choices=TYPE_OFFRE_CHOICES, unique=True, verbose_name="Type d’offre")
     slug = models.SlugField(max_length=128)
     description = models.TextField(blank=True, verbose_name="Description de l’offre")
@@ -43,12 +44,12 @@ class OffreBillet(models.Model):
     
 class Achat(models.Model):
     utilisateur = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
-    produit = models.ForeignKey(OffreBillet, on_delete=models.CASCADE)
+    billet = models.ForeignKey(OffreBillet, on_delete=models.CASCADE)
     quantité = models.IntegerField(default=1)
     acheté = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"{self.produit.name} ({self.quantity})"
+        return f"{self.billet.nom} ({self.quantité})"
     
 class Panier(models.Model):
     utilisateur = models.OneToOneField(AUTH_USER_MODEL, on_delete=models.CASCADE)

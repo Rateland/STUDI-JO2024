@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<h2><a href="{% url 'liste_epreuves' %}">Les épreuves</a></h2>
 <h2>{{ epreuve.titre }}</h2>
 <h3>Le {{ epreuve.date_epreuve }}</h3>
 <div></div>
@@ -13,12 +14,14 @@
 <p>{{ epreuve.description}}</p>
 
 {% if offres %}
-    <h4>Billets Disponibles:</h4>
+    <h4>Billets disponibles pour cette épreuve :</h4>
     {% for offre in offres %}
-        <p>{{ offre.nom }}: {{ offre.stock }} places restantes.</p>
+        <p>Ajouter un billet {{ offre.nom }} au <a href="{% url 'panier_epreuves' offre.slug %}"">panier</a>. {{ offre.stock }} places restantes.
+        </p>
     {% endfor %}
 {% else %}
     <p>Actuellement, il n'y a aucun billet disponible.</p>
 {% endif %}
+
 
 {% endblock %}
