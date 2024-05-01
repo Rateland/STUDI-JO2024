@@ -8,17 +8,41 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
+<header>
     <h1>Jeux Olympiques − France 2024</h1>
-<h4><a href="{% url 'accueil' %}">Accueil</a></h4>
-{% if user.is_authenticated %}
-    <p>{{ user.username }}, vous êtes bien connecté</p>
-<a href="{% url 'logout' %}">Déconnexion</a>
-{% else %}
-<a href="{% url 'login' %}">Connexion</a> <!-- Ne s’affiche que si l’utilisateur n’est pas connecté -->
-<a href="{% url 'signup' %}">Inscription</a> <!-- Ne s’affiche que si l’utilisateur n’est pas connecté -->
-{% endif %}
+<nav>
+    <h4><a href="{% url 'accueil' %}">Accueil</a></h4>
+    {% if user.is_authenticated %}
+        <p>{{ user.username }}, vous êtes bien connecté</p>
+    <h4><a href="{% url 'logout' %}">Déconnexion</a></h4>
+    {% else %}
+    <h4><a href="{% url 'login' %}">Connexion</a></h4> <!-- Ne s’affiche que si l’utilisateur n’est pas connecté -->
+    <h4><a href="{% url 'signup' %}">Inscription</a></h4> <!-- Ne s’affiche que si l’utilisateur n’est pas connecté -->
+    {% endif %}
+    <h4><a href="{% url 'voir_panier' %}" class="panier-link">Panier</a></h4>
+    <div class="panier-link">
+        {% if user.is_authenticated %}
+            {% if panier.achats.exists %}
+                <a href="{% url 'voir_panier' %}">
+                    <span>Panier ({{ panier.achats.count }} articles)</span>
+                    <img src="{% static 'images/panier-icon.png' %}" alt="Panier">
+                </a>
+            {% else %}
+                <span>Le panier est vide</span>
+            {% endif %}
+        {% else %}
+            <span>Votre panier est vide, ou <a href="{% url 'login' %}">connectez-vous</a></span>
+        {% endif %}
+    </div>
+</nav>
+</header>
+<main>
     {% block content %}
     {% endblock%}
-    
+</main>
+
+<footer>
+    <p>JO2024 pour STUDI</p>
+</footer>
 </body>
 </html>

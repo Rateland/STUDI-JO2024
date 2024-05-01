@@ -57,4 +57,14 @@ a:hover {
     text-decoration: underline; /* Ajoute un soulignement au survol */
 }
 
-/* Ajoutez d'autres styles spécifiques selon vos besoins */
+.panier-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: black; /* Adaptez à la couleur de votre choix */
+}
+
+.panier-link img {
+    margin-left: 5px;
+    width: 24px; /* Taille de l'icône */
+}

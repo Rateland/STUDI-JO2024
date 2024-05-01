@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Votre Panier</h1>
+
+{% if panier.achats.all %}
+    <ul>
+    {% for achat in panier.achats.all %}
+        <li>
+            {{ achat.billet.prix|floatformat:2 * achat.quantité|floatformat:2 }}€
+        </li>
+    {% endfor %}
+    </ul>
+    <p>Total: {{ total }}€</p>
+    <a href="#">Procéder au paiement</a>
+{% else %}
+    <p>Votre panier est vide.</p>
+{% endif %}
+
+<a href="{% url 'accueil' %}">Retour à la page d'accueil</a>
+{% endblock %}

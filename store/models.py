@@ -7,7 +7,6 @@ from Jeux_Olympiques_France.settings import AUTH_USER_MODEL
 
 # Create your models here.
 
-
 class Epreuve(models.Model):
     titre = models.CharField(max_length=200, verbose_name="Titre de l’épreuve")
     slug = models.SlugField(max_length=128)
@@ -28,13 +27,13 @@ class OffreBillet(models.Model):
         ('FAMILLE', 'Famille'),
     ]
 
-    epreuve = models.ForeignKey(Epreuve, null=True, related_name='offres', on_delete=models.CASCADE, verbose_name="Épreuve associée")
-    nom = models.CharField(max_length=100, choices=TYPE_OFFRE_CHOICES, unique=True, verbose_name="Type d’offre")
+    nom = models.CharField(max_length=100, choices=TYPE_OFFRE_CHOICES, unique=True, verbose_name="Type d’offre", null=True, blank=True)
     slug = models.SlugField(max_length=128)
     description = models.TextField(blank=True, verbose_name="Description de l’offre")
     stock = models.IntegerField(default=0)
     prix = models.DecimalField(default=0.0, max_digits=6, decimal_places=2, validators=[MinValueValidator(0.01)], verbose_name="Prix de l’offre")
     nombre_personnes = models.PositiveIntegerField(verbose_name="Nombre de personne par billet")
+    epreuve = models.ForeignKey(Epreuve, null=True, related_name='offres', on_delete=models.CASCADE, verbose_name="Épreuve associée")
 
     def __str__(self):
         return f"Offre {self.get_nom_display()} - {self.prix}€ - {self.stock} de places restantes"
@@ -47,15 +46,16 @@ class Achat(models.Model):
     billet = models.ForeignKey(OffreBillet, on_delete=models.CASCADE)
     quantité = models.IntegerField(default=1)
     acheté = models.BooleanField(default=False)
+    epreuve = models.ForeignKey(Epreuve, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return f"{self.billet.nom} ({self.quantité})"
     
 class Panier(models.Model):
-    utilisateur = models.OneToOneField(AUTH_USER_MODEL, on_delete=models.CASCADE)
+    utilisateur = models.OneToOneField(AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
     achats = models.ManyToManyField(Achat)
     acheté = models.BooleanField(default=False)
     date_achat = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
-        self.utilisateur.username
+        self.utilisateur.username if self.utilisateur else "Panier temporaire"

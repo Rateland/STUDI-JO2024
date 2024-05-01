@@ -4,10 +4,9 @@
 <h2>Description de l’offre {{ billet.nom }}</h2>
 <div></div>
 <p>{{ billet.description}}</p>
-<strong>Ce billet coûte {{ billet.prix }}€ l’unité.</strong>
+<p>Ce billet coûte <strong>{{ billet.prix }}€</strong> l’unité.</p>
+<div></div>
 <p>{{ billet.stock }} places encore disponible, prenez les vôtres !</p>
-<p>
-    <a href="{% url 'panier_billets' billet.slug %}"">Je veux ce billet</a>
-</p>
 
+<h3><h3><a href="{% url 'liste_epreuves' %}">Consultez les épreuves et prenez vos places !</a></h3></h3>
 {% endblock %}

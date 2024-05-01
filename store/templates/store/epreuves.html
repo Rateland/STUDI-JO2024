@@ -1,27 +1,28 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2><a href="{% url 'liste_epreuves' %}">Les épreuves</a></h2>
-<h2>{{ epreuve.titre }}</h2>
-<h3>Le {{ epreuve.date_epreuve }}</h3>
+<h3><a href="{% url 'liste_epreuves' %}">Retour à la liste des épreuves</a></h3>
 <div></div>
-    {% if epreuve.illustration %}
-        <img src="{{ epreuve.illustration.url }}" alt="Illustration pour {{ epreuve.titre }}" style="max-width: 250px; max-height: 250px;"">
-    {% else %}
-        <p></p>
-    {% endif %}
-<div></div>
-<p>{{ epreuve.description}}</p>
-
-{% if offres %}
-    <h4>Billets disponibles pour cette épreuve :</h4>
-    {% for offre in offres %}
-        <p>Ajouter un billet {{ offre.nom }} au <a href="{% url 'panier_epreuves' offre.slug %}"">panier</a>. {{ offre.stock }} places restantes.
-        </p>
-    {% endfor %}
+<h1>{{ epreuve.titre }}</h1>
+<p>{{ epreuve.description }}</p>
+<p>Date de l'événement : {{ epreuve.date_epreuve }}</p>
+{% if epreuve.illustration %}
+    <img src="{{ epreuve.illustration.url }}" alt="Illustration pour {{ epreuve.titre }}" style="max-width: 250px; max-height: 250px;">
 {% else %}
-    <p>Actuellement, il n'y a aucun billet disponible.</p>
+    <p>Aucune illustration disponible.</p>
 {% endif %}
 
-
+<h2>Billets disponibles :</h2>
+{% if offres %}
+    {% for offre in offres %}
+        <div>
+            <p>Offre: {{ offre.nom }} - Prix: {{ offre.prix }}€ - Places restantes: {{ offre.stock }}</p>
+            <a href="{% url 'panier_epreuves' epreuve.slug offre.slug %}">Ajouter au panier</a>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>Aucun billet disponible pour cette épreuve.</p>
+{% endif %}
+<div></div>
+<h3><a href="{% url 'liste_epreuves' %}">Retour à la liste des épreuves</a></h3>
 {% endblock %}
