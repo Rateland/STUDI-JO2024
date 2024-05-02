@@ -1,21 +1,28 @@
 {% extends 'base.html' %}
-
 {% block content %}
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
 <h1>Votre Panier</h1>
-
 {% if panier.achats.all %}
     <ul>
-    {% for achat in panier.achats.all %}
+        {% for achat in achats %}
         <li>
-            {{ achat.billet.prix|floatformat:2 * achat.quantité|floatformat:2 }}€
+            {{ achat.montant_total|floatformat:2 }}€
+            <a href="{% url 'supprimer_achat' achat.id %}">Supprimer</a>
         </li>
-    {% endfor %}
+        {% endfor %}
     </ul>
     <p>Total: {{ total }}€</p>
     <a href="#">Procéder au paiement</a>
 {% else %}
-    <p>Votre panier est vide.</p>
+<p>Votre panier est vide.</p>
 {% endif %}
-
-<a href="{% url 'accueil' %}">Retour à la page d'accueil</a>
+<div></div>
+<div></div>
+<span><a href="{% url 'accueil' %}">Retour à la page d'accueil</a></span>
 {% endblock %}

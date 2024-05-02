@@ -1,34 +1,40 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Découvrez la magie des Jeux Olympiques</h2>
-<p>Un voyage à travers le sport, l'histoire et la culture
+<div class="background-image">
+<h2 class="fadeIn">Découvrez la magie des Jeux Olympiques</h2>
+<p class="fadeIn">Un voyage à travers le sport, l'histoire et la culture
     Les Jeux Olympiques, cet événement séculaire qui a captivé l’humanité à travers les âges, continuent de tisser des liens indélébiles entre les nations du monde entier.
     Nés dans l’Antiquité grecque, ces jeux ont été ressuscités à l’ère moderne par Pierre de Coubertin en 1896, avec un idéal de paix et d'excellence. Chaque édition des Jeux est une fresque qui raconte les exploits, les rêves et les aspirations des athlètes venant des quatre coins du globe.
     Participer ou assister aux Jeux Olympiques, c’est vivre une expérience unique où chaque compétition est un récit de détermination, de stratégie et de performances exceptionnelles. C’est voir des athlètes transformer des années de préparation en quelques instants de perfection, sous les yeux de millions de spectateurs, où chaque seconde peut marquer l'histoire.
     La flamme olympique, qui voyage à travers les continents, ne porte pas seulement le feu sacré d’Olympie ; elle symbolise aussi la lumière de l'esprit, de l'amitié et du respect mutuel. Voir cette flamme s’allumer dans le stade olympique lors de la cérémonie d'ouverture est un spectacle émouvant et inspirant, qui annonce le début d’une quête de gloire et d’honneur.
     Les Jeux offrent également une scène incomparable pour découvrir les cultures du monde. Chaque ville hôte apporte sa couleur locale, son patrimoine et ses traditions au cœur de l’événement, enrichissant l'expérience olympique d’une dimension culturelle et festive.
     En somme, les Jeux Olympiques ne sont pas juste une série d’épreuves sportives ; ils sont une célébration de l’humanité, de ses diversités et de son potentiel extraordinaire. Que vous soyez un passionné de sport, un amateur d'histoire, ou simplement en quête de moments d'exception, les Jeux Olympiques vous offrent un spectacle sans pareil, riche en émotions et en découvertes. Ne manquez pas l’occasion de faire partie de l'histoire et de vivre des émotions qui resteront gravées à jamais dans votre mémoire.</p>
-    <div></div>
+</div>
     <a href="{% url 'liste_epreuves' %}"><h2>Les épreuves</h2></a>
-{% for epreuve in epreuves %}
-<a href="{{ epreuve.get_absolute_url }}"><h3>{{ epreuve.titre }}</h3></a>
-    <div></div>
-    {% if epreuve.illustration %}
-        <img src="{{ epreuve.illustration.url }}" alt="Illustration pour {{ epreuve.titre }}" style="max-width: 250px; max-height: 250px;"">
-    {% else %}
-        <p></p>
-    {% endif %}
-{% endfor %}
+    
+    <div class="epreuves-container">
+        {% for epreuve in epreuves %}
+        <div class="card slideIn">
+            <a href="{{ epreuve.get_absolute_url }}"><h3>{{ epreuve.titre }}</h3></a>
+            <div></div>
+            {% if epreuve.illustration %}
+                <img src="{{ epreuve.illustration.url }}" alt="Illustration pour {{ epreuve.titre }}" style="max-width: 250px; max-height: 250px;"">
+            {% else %}
+                <p></p>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
 
-<h2>Détail des offres - cliquez ici</h2>
+<h2>Détail des offres - cliquez pour plus de détails</h2>
 {% for offrebillet in billets %}
+<div class="card slideIn">
     <div></div>
     <p><a href="{{ offrebillet.get_absolute_url }}">Offre {{ offrebillet.nom }}</a></p>
-    
     <div></div>
+</div>
 {% endfor %}
-<p>Cliquez pour plus de détails</p>
-<h3>Réservez Votre Place Maintenant – Quantité et Disponibilité Limitées !</h3>
-<p>Ne manquez pas votre chance de faire partie de l'histoire des Jeux Olympiques ! Nos billets pour une journée d'accès illimité aux épreuves sont disponibles en nombre strictement limité.<br>En raison de la forte demande et des capacités d'accueil contrôlées, nous vous encourageons à sécuriser votre place dès maintenant. Chaque moment compte et chaque billet vous rapproche de l'action olympique – une expérience à ne pas rater.<br>Agissez rapidement pour garantir votre présence et vivre une journée inoubliable au cœur de l'émotion olympique. Achetez aujourd'hui pour éviter toute déception et rejoignez les spectateurs du monde entier dans cette célébration sportive mondiale.</p>
+<h3 class="fadeIn">Réservez Votre Place Maintenant – Quantité et Disponibilité Limitées !</h3>
+<p class="fadeIn">Ne manquez pas votre chance de faire partie de l'histoire des Jeux Olympiques ! Nos billets pour une journée d'accès illimité aux épreuves sont disponibles en nombre strictement limité.<br>En raison de la forte demande et des capacités d'accueil contrôlées, nous vous encourageons à sécuriser votre place dès maintenant. Chaque moment compte et chaque billet vous rapproche de l'action olympique – une expérience à ne pas rater.<br>Agissez rapidement pour garantir votre présence et vivre une journée inoubliable au cœur de l'émotion olympique. Achetez aujourd'hui pour éviter toute déception et rejoignez les spectateurs du monde entier dans cette célébration sportive mondiale.</p>
 {% endblock %}

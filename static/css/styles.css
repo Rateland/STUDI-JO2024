@@ -1,70 +1,121 @@
-/* Définition des couleurs de base */
-:root {
-    --primary-color: 000; /* Bleu */
-    --secondary-color: #6C757D; /* Gris */
-    --background-color: #F8F9FA; /* Gris très clair */
-    --text-color: #212529; /* Presque noir */
+/* Conteneur global */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
-/* Styles globaux */
-body {
-    display: flex;
-    text-align: justify;
-    background-color: fff;
-    color: var(--text-color);
-    font-family: 'Tahoma', sans-serif;
-    min-height: 100vh; /* Assure que le conteneur prend au moins toute la hauteur de la fenêtre */
-    flex-direction: column; /* Les enfants sont empilés verticalement */
-}
-
-/* Styles pour les en-têtes */
-h1 {
-    display: block;
+/* Header */
+.header {
+    background-color: var(--primary-color);
+    padding: 20px;
     text-align: center;
-    color: #6d071a;
 }
 
-h2 {
-    display: block;
-    text-align: justify;
-    margin-left: 32px;
-    margin-right: auto;
-    padding: 16px;
-    color: lightseagreen;
+.site-title {
+    color: var(--secondary-color);
+    margin-bottom: 10px;
 }
 
-h3, h4, h5, h6 {
-    display: block;
-    text-align: justify;
-    margin-left: 32px;
-    margin-right: auto;
-    color: lightseagreen;
-}
-
-/* Styles pour les paragraphes */
-p {
-    line-height: 1.6;
-    margin-bottom: 1em;
-}
-
-/* Styles pour les liens */
-a {
-    color: blue;
-    text-decoration: none; /* Supprime le soulignement par défaut */
-}
-
-a:hover {
-    text-decoration: underline; /* Ajoute un soulignement au survol */
-}
-
-.panier-link {
+/* Navigation */
+.main-nav {
     display: flex;
+    justify-content: space-around;
     align-items: center;
-    text-decoration: none;
-    color: black; /* Adaptez à la couleur de votre choix */
+    margin-top: 10px;
 }
 
-.panier-link img {
-    margin-left: 5px;
-    width: 24px; /* Taille de l'icône */
+.main-nav h4 a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.main-nav h4 a:hover {
+    text-decoration: underline;
+}
+
+/* Main */
+.content {
+    margin-top: 20px;
+    padding: 20px;
+}
+
+.fadeIn {
+    animation: fadeIn 1s ease-in-out;
+}
+
+.fadeIn h3 {
+    color: #7d0ed8; /* Couleur du titre */
+}
+
+.fadeIn p {
+    line-height: 1.6; /* Espacement entre les lignes de texte */
+    margin-bottom: 20px; /* Ajoute un espacement en bas du paragraphe */
+    color: #fff; /* Couleur du texte */
+    text-align: justify; /* Alignement justifié du texte */
+}
+
+.background-image {
+    background-image: url("{% static 'img/olympics.jpg' %}");
+    background-size: cover;
+    background-position: center;
+    padding: 50px; /* Ajoute un espacement autour du texte */
+    text-align: justify; /* Aligne le texte justifié */
+}
+
+.background-image h2 {
+    margin-bottom: 20px; /* Ajoute un espacement en bas du titre */
+}
+
+.background-image p {
+    line-height: 1.6; /* Espacement entre les lignes de texte */
+    margin-bottom: 20px; /* Ajoute un espacement en bas du paragraphe */
+    color: #000;
+    text-align: justify;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Animation slideIn */
+.slideIn {
+    animation: slideIn 1s ease-out;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(-100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+/* Styles pour les cartes (cards) */
+.card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 10px 0;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.epreuves-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px; /* Espacement entre les cartes */
+}
+
+/* Footer */
+.footer {
+    background-color: var(--secondary-color);
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    margin-top: 20px;
+    border-top: 1px solid #ddd;
 }

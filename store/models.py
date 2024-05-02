@@ -40,22 +40,22 @@ class OffreBillet(models.Model):
     
     def get_absolute_url(self):
         return reverse("billets", kwargs={"slug": self.slug})
-    
+
+class Panier(models.Model):
+    utilisateur = models.OneToOneField(AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
+    acheté = models.BooleanField(default=False)
+    date_achat = models.DateTimeField(blank=True, null=True)
+
+    def __str__(self):
+        return self.utilisateur.username if self.utilisateur else "Panier temporaire"
+
 class Achat(models.Model):
     utilisateur = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
     billet = models.ForeignKey(OffreBillet, on_delete=models.CASCADE)
+    panier = models.ForeignKey(Panier, on_delete=models.CASCADE, null=True, blank=True)  # Associer directement à un panier
     quantité = models.IntegerField(default=1)
     acheté = models.BooleanField(default=False)
     epreuve = models.ForeignKey(Epreuve, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return f"{self.billet.nom} ({self.quantité})"
-    
-class Panier(models.Model):
-    utilisateur = models.OneToOneField(AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
-    achats = models.ManyToManyField(Achat)
-    acheté = models.BooleanField(default=False)
-    date_achat = models.DateTimeField(blank=True, null=True)
-
-    def __str__(self):
-        self.utilisateur.username if self.utilisateur else "Panier temporaire"

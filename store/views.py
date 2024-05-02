@@ -39,6 +39,7 @@ def ajout_panier(request, epreuve_slug, billet_slug):
         achat, created = Achat.objects.get_or_create(
             billet=billet,
             utilisateur=request.user,
+            panier=panier,
             defaults={'quantité': 1, 'epreuve': epreuve}
         )
         if not created:
@@ -63,8 +64,10 @@ def ajout_panier(request, epreuve_slug, billet_slug):
     return redirect('voir_panier')
 
 def voir_panier(request):
-    if not request.user.is_authenticated:
-        # Redirection vers la page de connexion si l'utilisateur n'est pas authentifié
+    if not request.user.is_authenticated: # Redirection vers la page de connexion si l'utilisateur n'est pas authentifié
+        # Ajouter un message d'information pour l'utilisateur
+        messages.info(request, "Vous devez être connecté pour accéder au panier.")
+        # Redirection vers la page de connexion
         login_url = reverse('login')
         return redirect(f"{login_url}?next={request.path}")
 
@@ -87,11 +90,32 @@ def voir_panier(request):
                 # Si l'achat existe déjà, augmenter la quantité
                 achat.quantité += item['quantité']
                 achat.save()
-    
+
+            # Ajout du lien entre l'achat et le panier
+            panier.achats.add(achat)
+
     # Calculer le total du panier en fonction de la quantité et du prix de chaque billet
-    total = sum(achat.quantité * achat.billet.prix for achat in panier.achats.all())
-    # Rendre le modèle du panier avec les détails
-    return render(request, 'store/panier.html', {'panier': panier, 'total': total})
+    total = 0
+    achats = []
+    for achat in Achat.objects.filter(panier=panier):
+        montant_total = achat.quantité * achat.billet.prix
+        achat.montant_total = montant_total  # Assignez directement à l'objet achat
+        total += montant_total
+        achats.append(achat)  # Ajoutez l'achat à la liste des achats
+
+    return render(request, 'store/panier.html', {'panier': panier, 'total': total, 'achats': achats})
+
+def supprimer_achat(request, achat_id):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    
+    try:
+        achat = Achat.objects.get(id=achat_id, utilisateur=request.user)
+        achat.delete()
+    except Achat.DoesNotExist:
+        messages.error(request, "Cet achat n'existe pas ou n'est pas dans votre panier.")
+    
+    return redirect('voir_panier')
 
 @login_required     
 def procéder_au_paiement(request):

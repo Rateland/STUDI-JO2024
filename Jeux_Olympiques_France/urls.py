@@ -33,5 +33,6 @@ urlpatterns = [
     path('epreuves/', liste_epreuves, name="liste_epreuves"),
     path('billets/<str:slug>/', billets_detail, name="billets"),
     path('panier/', voir_panier, name='voir_panier'),
+    path('panier/supprimer/<int:achat_id>/', supprimer_achat, name='supprimer_achat'),
     path('proceder-au-paiement/', procéder_au_paiement, name='proceder_au_paiement'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
