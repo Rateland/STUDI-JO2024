@@ -1,28 +1,29 @@
 {% extends 'base.html' %}
-
 {% block content %}
-<h3><a href="{% url 'liste_epreuves' %}">Retour à la liste des épreuves</a></h3>
-<div></div>
-<h1>{{ epreuve.titre }}</h1>
-<p>{{ epreuve.description }}</p>
-<p>Date de l'événement : {{ epreuve.date_epreuve }}</p>
-{% if epreuve.illustration %}
-    <img src="{{ epreuve.illustration.url }}" alt="Illustration pour {{ epreuve.titre }}" style="max-width: 250px; max-height: 250px;">
-{% else %}
-    <p>Aucune illustration disponible.</p>
-{% endif %}
+<h3><a href="{% url 'liste_epreuves' %}" class="back-link">Retour à la liste des épreuves</a></h3>
+<div class="epreuve-header">
+    <h1 class="epreuve-title">{{ epreuve.titre }}</h1>
+    <p class="epreuve-description">{{ epreuve.description }}</p>
+    <p class="epreuve-date">Date de l'événement : {{ epreuve.date_epreuve }}</p>
+    {% if epreuve.illustration %}
+        <img src="{{ epreuve.illustration.url }}" alt="Illustration pour {{ epreuve.titre }}" class="epreuve-image">
+    {% else %}
+        <p class="no-illustration">Aucune illustration disponible.</p>
+    {% endif %}
+</div>
 
 <h2>Billets disponibles :</h2>
-{% if offres %}
-    {% for offre in offres %}
-        <div>
-            <p>Offre: {{ offre.nom }} - Prix: {{ offre.prix }}€ - Places restantes: {{ offre.stock }}</p>
-            <a href="{% url 'panier_epreuves' epreuve.slug offre.slug %}">Ajouter au panier</a>
-        </div>
-    {% endfor %}
-{% else %}
-    <p>Aucun billet disponible pour cette épreuve.</p>
-{% endif %}
-<div></div>
-<h3><a href="{% url 'liste_epreuves' %}">Retour à la liste des épreuves</a></h3>
+<div class="offers-container">
+    {% if offres %}
+        {% for offre in offres %}
+            <div>
+                <p class="offer-card">Offre: {{ offre.nom }} - Prix: {{ offre.prix }}€ - Places restantes: {{ offre.stock }}</p>
+                <a href="{% url 'panier_epreuves' epreuve.slug offre.slug %}" class="add-to-cart">Ajouter au panier</a>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>Aucun billet disponible pour cette épreuve.</p>
+    {% endif %}
+</div>
+<h3><a href="{% url 'liste_epreuves' %}" class="back-link">Retour à la liste des épreuves</a></h3>
 {% endblock %}

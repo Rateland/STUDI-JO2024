@@ -8,26 +8,27 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <script src="{% static 'js/scripts.js' %}" defer></script>
 </head>
-<body>
+<body {% block body_class %}class="home-page"{% endblock %}>
 <header class="header">
     <div class="container">
         <h1 class="site-title">Jeux Olympiques − France 2024</h1>
-        <nav class="main-nav">
+        <nav class="main-nav" aria-label="Navigation principale">
             <h4><a href="{% url 'accueil' %}" class="card slideIn">Accueil</a></h4>
             {% if user.is_authenticated %}
-                <p>{{ user.username }}, vous êtes bien connecté</p>
-                <h4><a href="{% url 'logout' %}">Déconnexion</a></h4>
+                <p class="ifconnect">{{ user.username }}, vous êtes bien connecté</p>
+                <h4><a href="{% url 'logout' %}" class="card slideIn">Déconnexion</a></h4>
             {% else %}
                 <h4><a href="{% url 'login' %}" class="card slideIn">Connexion</a></h4> <!-- Ne s’affiche que si l’utilisateur n’est pas connecté -->
                 <h4><a href="{% url 'signup' %}" class="card slideIn">Inscription</a></h4> <!-- Ne s’affiche que si l’utilisateur n’est pas connecté -->
             {% endif %}
-            <h4><a href="{% url 'voir_panier' %}" class="panier-link">Panier</a></h4>
+            <h4><a href="{% url 'voir_panier' %}" class="panier-link, card slideIn">Panier</a></h4>
             <div class="panier-link">
                 {% if user.is_authenticated %}
                     {% if panier.achats.exists %}
-                        <a href="{% url 'voir_panier' %}"><span>({{ panier.achats.count }} articles)</span></a>
+                        <a href="{% url 'voir_panier' %}">
+                            <span aria-live="polite">({{ panier.achats.count }} articles)</span></a>
                     {% else %}
-                        <span>Le panier est vide</span>
+                        <span aria-live="polite" class="ifconnect">Le panier est vide</span>
                 {% endif %}
             {% endif %}
             </div>
@@ -38,7 +39,6 @@
     {% block content %}
     {% endblock%}
 </main>
-
 <footer class="footer">
     <div class="container">
         <p>JO2024 pour STUDI</p>

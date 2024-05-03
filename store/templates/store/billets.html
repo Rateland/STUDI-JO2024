@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Description de l’offre {{ billet.nom }}</h2>
-<div></div>
-<p>{{ billet.description}}</p>
-<p>Ce billet coûte <strong>{{ billet.prix }}€</strong> l’unité.</p>
-<div></div>
-<p>{{ billet.stock }} places encore disponible, prenez les vôtres !</p>
 
-<h3><h3><a href="{% url 'liste_epreuves' %}">Consultez les épreuves et prenez vos places !</a></h3></h3>
+<h1 class="billet-title">L’Offre {{ billet.nom }}</h1>
+<div class="billet-container">
+    <p class="billet-description">{{ billet.description}}</p>
+    <p class="billet-price">Ce billet coûte <strong>{{ billet.prix }}€</strong> l’unité.</p>
+    <p class="billet-stock">{{ billet.stock }} places encore disponible, prenez les vôtres !</p>
+
+    <h3><a href="{% url 'liste_epreuves' %}" class="billet-action">Consultez les épreuves et prenez vos places !</a></h3>
+</div>
 {% endblock %}

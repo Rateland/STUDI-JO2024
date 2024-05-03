@@ -3,11 +3,13 @@
 {% block content %}
 <h1>Connexion</h1>
 {% if messages %}
-    {% for message in messages %}
+    <ul class="messages">
+        {% for message in messages %}
         <div class="alert {{ message.tags }}">
             {{ message }}
         </div>
-    {% endfor %}
+        {% endfor %}
+    </ul>
 {% endif %}
 
 <form method="POST">
