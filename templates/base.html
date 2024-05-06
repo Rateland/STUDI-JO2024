@@ -8,10 +8,15 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <script src="{% static 'js/scripts.js' %}" defer></script>
 </head>
-<body {% block body_class %}class="home-page"{% endblock %}>
+<body>
 <header class="header">
     <div class="container">
+            <div class="header-slider">
+                <img src="{% static 'img/back1.webp' %}" alt="Affiche 1" class="header-slide">
+                <img src="{% static 'img/back2.webp' %}" alt="Affiche 2" class="header-slide">
+            </div>
         <h1 class="site-title">Jeux Olympiques − France 2024</h1>
+        <img src="{% static 'img/MassScott.webp' %}" alt="Image 2" class="header-image">
         <nav class="main-nav" aria-label="Navigation principale">
             <h4><a href="{% url 'accueil' %}" class="card slideIn">Accueil</a></h4>
             {% if user.is_authenticated %}
@@ -41,7 +46,11 @@
 </main>
 <footer class="footer">
     <div class="container">
-        <p>JO2024 pour STUDI</p>
+        <div class="epreuves-container">
+            <p class="card">Mentions Légales</p>
+            <p class="card">JO2024 pour STUDI</p>
+            <p class="card"><a href="mailto:EtudiantSTUDI@gmx.fr">Contact</a></p>
+        </div>
     </div>
 </footer>
 </body>

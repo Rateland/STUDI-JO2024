@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.conf import settings
 from django.core.validators import MinValueValidator
 from django.core.exceptions import ValidationError
 from Jeux_Olympiques_France.settings import AUTH_USER_MODEL
@@ -10,7 +11,9 @@ from Jeux_Olympiques_France.settings import AUTH_USER_MODEL
 class Epreuve(models.Model):
     titre = models.CharField(max_length=200, verbose_name="Titre de l’épreuve")
     slug = models.SlugField(max_length=128)
+    type = models.CharField(max_length=128, verbose_name="Type d’épreuve", blank=True, null=True)
     description = models.TextField(verbose_name="Description de l’épreuve")
+    mention = models.TextField(verbose_name="Mentions", blank=True, null=True)
     date_epreuve = models.DateField(verbose_name="Date de l’épreuve")
     illustration = models.ImageField(upload_to="imgbank", blank=True, null=True)
 
@@ -59,3 +62,13 @@ class Achat(models.Model):
 
     def __str__(self):
         return f"{self.billet.nom} ({self.quantité})"
+    
+class Transaction(models.Model):
+    utilisateur = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    panier = models.ForeignKey(Panier, on_delete=models.SET_NULL, null=True, blank=True)
+    montant_total = models.DecimalField(max_digits=10, decimal_places=2)
+    status = models.CharField(max_length=20, choices=[('reussi', 'Réussi'), ('echoue', 'Échoué')])
+    date_transaction = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Transaction {self.id} - {self.utilisateur.username} - {self.status}"

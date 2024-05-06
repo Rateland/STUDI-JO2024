@@ -1,16 +1,16 @@
-/* === Couleurs principales === */
+/* Couleurs principales */
 :root {
-    --gtitle-color: #FFF000; /* couleur principale */
-    --mtitle-color: #FF4901;
+    --gtitle-color: #00ABE4; /* couleur principale */
+    --mtitle-color: #E9F1FA;
+    --simple_titre-color: #FFFFFF;
     --highlight-color: #90509c; /* couleur pour les liens survolés et les accents */
-    --text-color: #212529; /* presque noir */
+    --text-color: #212529;
 }
 
-/* === Styles globaux === */
+/* Styles globaux */
 .header {
-    color: var(--highlight-color);
-    padding: 20px;
-    font-family: 'Segoe UI', Tahoma, sans-serif;
+    padding: 10px;
+    font-family: Tahoma, sans-serif;
     font-size: 32px;
     text-align: center;
 }
@@ -21,8 +21,62 @@
     padding: 20px;
 }
 
+.header-image {
+    border-radius: 50%;
+    max-width: 100px;
+    max-height: 100px;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+}
+
+.header-slider {
+    position: relative;
+    height: 800px; /* Ajuster la hauteur selon vos besoins */
+    z-index: -1;
+}
+
+.header-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 2s ease-in-out;
+    background-size: cover;
+    background-position: center;
+}
+  
+.header-slide:first-child {
+    animation: headerSlider 20s infinite;
+}
+  
+.header-slide:last-child {
+    animation: headerSlider 20s infinite 10s;
+}
+  
+@keyframes headerSlider {
+    0% {
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    40% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 0;
+    }
+}
+
 .site-title {
-    color: var(--mtitle-color);
+    color: var(--gtitle-color);
     margin-bottom: 10px;
     font-family: Helvetica, sans-serif;
 }
@@ -32,12 +86,13 @@
     justify-content: space-around;
     align-items: center;
     margin-top: 10px;
-    text-decoration: none;
+    text-decoration-color: #323232;
     margin: 0 10px;
 }
 
 .main-nav h4 a {
-    color: var(--text-color);
+    color: var(--gtitle-color);
+
 }
 
 .main-nav h4 a:hover {
@@ -51,40 +106,29 @@
 
 .content {
     margin-top: 20px;
+    min-height: calc(100% - 100px);
     padding: 20px;
     font-family: Tahoma, sans-serif;
     font-size: 20px;
 }
 
-h2 {
-    color: var(--mtitle-color) !important;
-}
-
-/* === Styles spécifiques à l'accueil === */
-.home-page .background-image {
-    background-image: url("{% static 'img/back.webp' %}") !important;
-    background-size: cover;
-    background-position: center;
-    z-index: -1;
-}
-
-.home-page .fadeIn {
-    animation: fadeIn 1s ease-in-out;
-    padding: 50px;
-    text-align: justify;
-}
-
-.home-page h2.fadeIn {
+.mtitre {
+    color: var(--gtitle-color);
     margin-bottom: 20px;
 }
 
-.home-page p.fadeIn {
-    line-height: 1.6; /* Espacement entre les lignes de texte */
-    margin-bottom: 20px; /* Ajoute un espacement en bas du paragraphe */
-    color: #fff; /* Couleur du texte */
-    text-align: justify; /* Alignement justifié du texte */
+.simple_titre {
+    color: var(--gtitle-color);
 }
 
+.txt{
+    color: var(--text-color);
+    text-align: justify;
+    line-height: 1.6; /* Espacement entre les lignes de texte */
+    margin-bottom: 20px; /* Ajoute un espacement en bas du paragraphe */
+}
+
+/* Styles spécifiques à l'accueil */
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -93,18 +137,14 @@ h2 {
 .fadeIn {
     animation: fadeIn 1s ease-in-out;
     text-align: justify;
+    padding: 50px;
 }
 
-.fadeIn h3 {
-    color: var(--gtitle-color); /* Harmoniser les couleurs */
-}
-
-.fadeIn p {
-    line-height: 1.6; /* Espacement entre les lignes de texte */
-    margin-bottom: 20px; /* Ajoute un espacement en bas du paragraphe */
-    color: #fff; /* Couleur du texte */
-    text-align: justify; /* Alignement justifié du texte */
-}
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
 
 /* Animation slideIn */
 .slideIn {
@@ -129,7 +169,7 @@ h2 {
 
 /* Styles pour les cartes (cards) */
 .card {
-    border: 1px solid var(--gtitle-color);
+    border: 1px solid var(--gtitle-color) !important;
     background-color: #fff;
     border-radius: 10px;
     padding: 20px;
@@ -165,9 +205,9 @@ h2 {
 
 .add-to-cart {
     display: inline-block;
-    background-color: var(--gtitle-color);
-    color: #fff;
-    text-decoration: none;
+    background-color: var(--mtitle-color);
+    color: var(--text-color);
+    text-decoration-color: var (--text-color);
     padding: 10px 20px;
     border-radius: 5px;
     transition: background-color 0.3s;
@@ -202,7 +242,8 @@ h2 {
 
 .epreuve-description {
     font-size: 1.2em;
-    color: #666;
+    text-align: justify;
+    color: var(--text-color);
     margin-bottom: 15px;
 }
 
@@ -304,12 +345,14 @@ h2 {
 
 /* Footer */
 .footer {
-    background-color: lightseagreen;
+    height: 96px;
+    background-color: #FFF;
     color: #000;
     text-align: center;
-    padding: 10px;
-    margin-top: 20px;
-    border-top: 1px solid #ddd;
+    margin-top: 32px;
+    margin-bottom: 32px;
+    position: sticky;
+    bottom: 0;
 }
 
 /* Infobulles */

@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from store.models import *
 from django.db import transaction
 from django.db.models import F
+from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import reverse
@@ -117,19 +118,38 @@ def supprimer_achat(request, achat_id):
     
     return redirect('voir_panier')
 
-@login_required     
+@login_required
 def procéder_au_paiement(request):
-    if not request.user.is_authenticated:
-        return redirect('login')
+    utilisateur = request.user
     try:
-        panier = Panier.objects.get(utilisateur=request.user)
+        panier = Panier.objects.get(utilisateur=utilisateur)
+
         if panier.achats.exists():
-            # Ici, intégrez la logique de paiement
-            # Après le paiement réussi :
+            # Calcul du montant total du panier
+            total = sum(achat.quantité * achat.billet.prix for achat in Achat.objects.filter(panier=panier))
+
+            # Simuler le paiement
+            transaction_status = 'reussi'  # Simule toujours le succès du paiement
+
+            # Créer une nouvelle transaction
+            transaction = Transaction.objects.create(
+                utilisateur=utilisateur,
+                panier=panier,
+                montant_total=total,
+                status=transaction_status,
+                date_transaction=timezone.now()
+            )
+
+            # Mettre à jour le panier comme acheté
             panier.acheté = True
+            panier.date_achat = timezone.now()
             panier.save()
-            return render(request, 'store/confirmation_paiement.html')
+
+            messages.success(request, "Paiement réussi. Merci pour votre achat !")
+            return render(request, 'store/confirmation_paiement.html', {'transaction': transaction})
         else:
+            messages.error(request, "Votre panier est vide.")
             return redirect('voir_panier')
     except Panier.DoesNotExist:
+        messages.error(request, "Panier introuvable.")
         return redirect('voir_panier')

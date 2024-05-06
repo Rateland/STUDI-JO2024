@@ -1,0 +1,19 @@
+== Palettes de couleurs testées ==
+/* Nuances bleu et blanc */
+#E9F1FA
+#00ABE4
+#FFFFFF
+
+/* Beige et gris */
+#DDD0C8
+#323232
+
+/* Bleu-gris x2 et blanc */
+#96C2DB
+#E5EDF1
+#FFFFFF
+
+/* Presque noir */
+#212529
+
+<img src="{% static 'img/back.webp' %}" alt="Image 1" class="header-image1">

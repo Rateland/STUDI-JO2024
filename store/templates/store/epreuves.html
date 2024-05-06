@@ -3,7 +3,9 @@
 <h3><a href="{% url 'liste_epreuves' %}" class="back-link">Retour à la liste des épreuves</a></h3>
 <div class="epreuve-header">
     <h1 class="epreuve-title">{{ epreuve.titre }}</h1>
+    <p class="epreuve-description">Type d’épreuve : {{ epreuve.type }}</p>
     <p class="epreuve-description">{{ epreuve.description }}</p>
+    <p class="epreuve-description">{{ epreuve.mention }}</p>
     <p class="epreuve-date">Date de l'événement : {{ epreuve.date_epreuve }}</p>
     {% if epreuve.illustration %}
         <img src="{{ epreuve.illustration.url }}" alt="Illustration pour {{ epreuve.titre }}" class="epreuve-image">
