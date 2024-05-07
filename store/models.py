@@ -72,3 +72,30 @@ class Transaction(models.Model):
 
     def __str__(self):
         return f"Transaction {self.id} - {self.utilisateur.username} - {self.status}"
+    
+class Ticket(models.Model):
+    transaction = models.OneToOneField(Transaction, on_delete=models.CASCADE)
+    utilisateur = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    montant_total = models.DecimalField(max_digits=10, decimal_places=2)
+    achats = models.ManyToManyField(Achat)
+    date_creation = models.DateTimeField(auto_now_add=True)
+    qr_code = models.ImageField(upload_to='qr_codes/', blank=True, null=True)
+
+    def __str__(self):
+        return f"Ticket {self.id} - {self.utilisateur.username} - {self.montant_total} €"
+    
+def serialize_ticket(ticket):
+    return {
+        'transaction_id': ticket.transaction.id,
+        'utilisateur': ticket.utilisateur.username,
+        'montant_total': str(ticket.montant_total),
+        'achats': [
+            {
+                'billet': achat.billet.nom,
+                'quantité': achat.quantité,
+                'prix': str(achat.billet.prix)
+            }
+            for achat in ticket.achats.all()
+        ],
+        'date_creation': ticket.date_creation.isoformat()
+    }

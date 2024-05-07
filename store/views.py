@@ -1,12 +1,13 @@
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
-from store.models import *
 from django.db import transaction
 from django.db.models import F
 from django.utils import timezone
-from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+from store.models import *
+from store.QRcode import *
 
 # Create your views here.
 def accueil(request):
@@ -123,30 +124,43 @@ def procéder_au_paiement(request):
     utilisateur = request.user
     try:
         panier = Panier.objects.get(utilisateur=utilisateur)
-
         if panier.achats.exists():
-            # Calcul du montant total du panier
             total = sum(achat.quantité * achat.billet.prix for achat in Achat.objects.filter(panier=panier))
 
             # Simuler le paiement
-            transaction_status = 'reussi'  # Simule toujours le succès du paiement
+            transaction_id, status = simulate_payment(total)
 
-            # Créer une nouvelle transaction
-            transaction = Transaction.objects.create(
-                utilisateur=utilisateur,
-                panier=panier,
-                montant_total=total,
-                status=transaction_status,
-                date_transaction=timezone.now()
-            )
+            try:
+                # Créer une nouvelle transaction
+                transaction = Transaction.objects.create(
+                    utilisateur=utilisateur,
+                    panier=panier,
+                    montant_total=total,
+                    status=status,
+                    date_transaction=timezone.now()
+                )
 
-            # Mettre à jour le panier comme acheté
-            panier.acheté = True
-            panier.date_achat = timezone.now()
-            panier.save()
+                # Créer le ticket associé à la transaction
+                ticket = Ticket.objects.create(
+                    transaction=transaction,
+                    utilisateur=utilisateur,
+                    montant_total=total
+                )
+                ticket.achats.set(panier.achats.all())
+                ticket.save()
 
-            messages.success(request, "Paiement réussi. Merci pour votre achat !")
-            return render(request, 'store/confirmation_paiement.html', {'transaction': transaction})
+                # Générer le code QR
+                generate_qr_code(ticket)
+
+                panier.acheté = True
+                panier.date_achat = timezone.now()
+                panier.save()
+
+                messages.success(request, "Paiement réussi. Merci pour votre achat !")
+                return render(request, 'store/confirmation_paiement.html', {'ticket': ticket})
+            except Exception as e:
+                messages.error(request, f"Erreur lors de la création du ticket ou de la transaction : {str(e)}")
+                return redirect('voir_panier')
         else:
             messages.error(request, "Votre panier est vide.")
             return redirect('voir_panier')

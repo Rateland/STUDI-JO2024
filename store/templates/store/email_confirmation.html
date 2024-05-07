@@ -1,0 +1,8 @@
+<p>Bonjour {{ ticket.utilisateur.username }},</p>
+<p>Merci pour votre achat. Veuillez trouver ci-joint votre ticket.</p>
+<ul>
+    <li>Identifiant de la transaction : {{ ticket.transaction.id }}</li>
+    <li>Montant total : {{ ticket.montant_total }} €</li>
+    <li>Date : {{ ticket.date_creation }}</li>
+</ul>
+<p>Veuillez trouver en pièce jointe le QR code de votre ticket.</p>
