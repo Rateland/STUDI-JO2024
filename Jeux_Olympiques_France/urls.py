@@ -1,25 +1,10 @@
-"""
-URL configuration for Jeux_Olympiques_France project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.0/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls.static import static
 from store.views import *
 from accounts.views import *
 from Jeux_Olympiques_France import settings
+from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token, verify_jwt_token
 
 # note pour retravailler ça : path('lechemin/', lavue, name="lechemin")
 urlpatterns = [
@@ -35,4 +20,7 @@ urlpatterns = [
     path('panier/', voir_panier, name='voir_panier'),
     path('panier/supprimer/<int:achat_id>/', supprimer_achat, name='supprimer_achat'),
     path('proceder-au-paiement/', procéder_au_paiement, name='proceder_au_paiement'),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

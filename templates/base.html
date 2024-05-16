@@ -20,7 +20,7 @@
         <nav class="main-nav" aria-label="Navigation principale">
             <h4><a href="{% url 'accueil' %}" class="card slideIn">Accueil</a></h4>
             {% if user.is_authenticated %}
-                <p class="ifconnect">{{ user.username }}, vous êtes bien connecté</p>
+                <a class="main-nav card simple_titre" >{{ user.username }}, vous êtes bien connecté</a>
                 <h4><a href="{% url 'logout' %}" class="card slideIn">Déconnexion</a></h4>
             {% else %}
                 <h4><a href="{% url 'login' %}" class="card slideIn">Connexion</a></h4> <!-- Ne s’affiche que si l’utilisateur n’est pas connecté -->
@@ -34,8 +34,8 @@
                             <span aria-live="polite">({{ panier.achats.count }} articles)</span></a>
                     {% else %}
                         <span aria-live="polite" class="ifconnect">Le panier est vide</span>
-                {% endif %}
-            {% endif %}
+                    {% endif %}
+                 {% endif %}
             </div>
         </nav>
     </div>

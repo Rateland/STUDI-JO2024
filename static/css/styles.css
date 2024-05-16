@@ -18,7 +18,7 @@
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 10px;
 }
 
 .header-image {
@@ -88,21 +88,16 @@
     align-items: center;
     margin-top: 10px;
     text-decoration-color: #323232;
-    margin: 0 10px;
+    margin: 0 5px;
 }
 
 .main-nav h4 a {
     color: var(--gtitle-color);
-
+    white-space: nowrap;
 }
 
 .main-nav h4 a:hover {
     text-decoration: underline;
-}
-
-.ifconnect {
-    font-family: Tahoma, sans-serif;
-    font-size: 16px;
 }
 
 .content {
