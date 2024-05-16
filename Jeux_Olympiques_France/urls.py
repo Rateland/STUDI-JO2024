@@ -4,7 +4,7 @@ from django.conf.urls.static import static
 from store.views import *
 from accounts.views import *
 from Jeux_Olympiques_France import settings
-from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token, verify_jwt_token
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 
 # note pour retravailler ça : path('lechemin/', lavue, name="lechemin")
 urlpatterns = [
