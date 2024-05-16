@@ -8,11 +8,11 @@
     </ul>
 {% endif %}
 <h1>Votre Panier</h1>
-{% if panier.achats.all %}
+{% if achats %}
     <ul>
         {% for achat in achats %}
         <li>
-            {{ achat.montant_total|floatformat:2 }}€
+            {{ achat.billet.nom }} - {{ achat.quantité }} x {{ achat.billet.prix }}€ = {{ achat.montant_total|floatformat:2 }}€
             <a href="{% url 'supprimer_achat' achat.id %}">Supprimer</a>
         </li>
         {% endfor %}

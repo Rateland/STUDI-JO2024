@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model, login, logout, authenticate
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
 from store.models import *
 from store.QRcode import *
 
-# Create your views here.
 User = get_user_model()
 
 def signup(request):
@@ -17,14 +18,12 @@ def signup(request):
 
         # Validation des mots de passe
         if password != password_confirm:
-            return render(request, 'accounts/signup.html', {
-                'error': 'Les mots de passe ne correspondent pas.'
-            })
+            messages.error(request, 'Les mots de passe ne correspondent pas.')
+            return render(request, 'accounts/signup.html')
 
         if User.objects.filter(username=username).exists():
-            return render(request, 'accounts/signup.html', {
-                'error': 'Ce nom d’utilisateur est déjà pris.'
-            })
+            messages.error(request, 'Ce nom d’utilisateur est déjà pris.')
+            return render(request, 'accounts/signup.html')
 
         user = User.objects.create_user(
             username=username,
@@ -54,9 +53,8 @@ def login_user(request):
                 login(request, user)
                 return redirect('accueil')
 
-        return render(request, 'accounts/login.html', {
-            'error': 'Courriel ou mot de passe incorrect.'
-        })
+        messages.error(request, 'Courriel ou mot de passe incorrect.')
+        return render(request, 'accounts/login.html')
     
     return render(request, 'accounts/login.html')
 

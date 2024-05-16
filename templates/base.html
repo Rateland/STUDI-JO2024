@@ -22,21 +22,18 @@
             {% if user.is_authenticated %}
                 <a class="main-nav card simple_titre" >{{ user.username }}, vous êtes bien connecté</a>
                 <h4><a href="{% url 'logout' %}" class="card slideIn">Déconnexion</a></h4>
-            {% else %}
-                <h4><a href="{% url 'login' %}" class="card slideIn">Connexion</a></h4> <!-- Ne s’affiche que si l’utilisateur n’est pas connecté -->
-                <h4><a href="{% url 'signup' %}" class="card slideIn">Inscription</a></h4> <!-- Ne s’affiche que si l’utilisateur n’est pas connecté -->
-            {% endif %}
-            <h4><a href="{% url 'voir_panier' %}" class="panier-link, card slideIn">Panier</a></h4>
-            <div class="panier-link">
-                {% if user.is_authenticated %}
-                    {% if panier.achats.exists %}
-                        <a href="{% url 'voir_panier' %}">
-                            <span aria-live="polite">({{ panier.achats.count }} articles)</span></a>
+                <h4><a href="{% url 'voir_panier' %}" class="panier-link card slideIn">
+                    {% if panier_total > 0 %}
+                        (Il y a {{ panier_total }} articles)
                     {% else %}
-                        <span aria-live="polite" class="ifconnect">Le panier est vide</span>
+                        Le panier est vide
                     {% endif %}
-                 {% endif %}
-            </div>
+                </a></h4>
+            {% else %}
+                <h4><a href="{% url 'login' %}" class="card slideIn">Connexion</a></h4>
+                <h4><a href="{% url 'signup' %}" class="card slideIn">Inscription</a></h4>
+                <h4><a href="{% url 'voir_panier' %}" class="panier-link card slideIn">Panier</a></h4>
+            {% endif %}
         </nav>
     </div>
 </header>

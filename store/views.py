@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.db import transaction
-from django.db.models import F
+from django.db.models import F, Sum
 from django.utils import timezone
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -13,7 +13,14 @@ from store.QRcode import *
 def accueil(request):
     epreuves = Epreuve.objects.all()
     billets = OffreBillet.objects.all()
-    return render(request, 'store/accueil.html', context={"epreuves": epreuves, "billets": billets})
+
+    if request.user.is_authenticated:
+        panier, created = Panier.objects.get_or_create(utilisateur=request.user)
+        panier_total = Achat.objects.filter(panier=panier).aggregate(Sum('quantité'))['quantité__sum'] or 0
+    else:
+        panier_total = 0
+
+    return render(request, 'store/accueil.html', context={"epreuves": epreuves, "billets": billets, "panier_total": panier_total})
 
 def epreuves_detail(request, slug):
     epreuve = get_object_or_404(Epreuve, slug=slug)
@@ -30,80 +37,60 @@ def billets_detail(request, slug):
     return render(request, 'store/billets.html', context={"billet": billet})
 
 def ajout_panier(request, epreuve_slug, billet_slug):
-    # Récupérer l'épreuve et l'offre de billet par leurs slugs
     epreuve = get_object_or_404(Epreuve, slug=epreuve_slug)
     billet = get_object_or_404(OffreBillet, slug=billet_slug)
     
     if request.user.is_authenticated:
-        # Récupérer ou créer le panier pour l'utilisateur connecté
         panier, created = Panier.objects.get_or_create(utilisateur=request.user)
-        # Récupérer ou créer l'achat associé au panier et à l'utilisateur
         achat, created = Achat.objects.get_or_create(
             billet=billet,
             utilisateur=request.user,
-            panier=panier,
-            defaults={'quantité': 1, 'epreuve': epreuve}
+            defaults={'quantité': 1, 'epreuve': epreuve, 'panier': panier}  # Associez le panier ici
         )
         if not created:
-            # Si l'achat existe déjà, augmenter la quantité
             achat.quantité += 1
             achat.save()
     else:
-        # Gérer le panier temporaire pour les utilisateurs non authentifiés
         panier_temp = request.session.get('panier_temp', [])
         for item in panier_temp:
             if item['billet_id'] == billet.id:
-                # Si le billet existe déjà dans le panier temporaire, augmenter la quantité
                 item['quantité'] += 1
                 break
         else:
-            # Sinon, ajouter un nouvel article au panier temporaire
             panier_temp.append({'billet_id': billet.id, 'quantité': 1, 'epreuve_id': epreuve.id})
-        # Sauvegarder le panier temporaire dans la session
         request.session['panier_temp'] = panier_temp
 
-    # Redirection vers la vue du panier
-    return redirect('voir_panier')
+    return redirect(request.META.get('HTTP_REFERER', 'accueil'))
 
 def voir_panier(request):
-    if not request.user.is_authenticated: # Redirection vers la page de connexion si l'utilisateur n'est pas authentifié
-        # Ajouter un message d'information pour l'utilisateur
+    if not request.user.is_authenticated:
         messages.info(request, "Vous devez être connecté pour accéder au panier.")
-        # Redirection vers la page de connexion
         login_url = reverse('login')
         return redirect(f"{login_url}?next={request.path}")
 
-    # Récupérer ou créer le panier pour l'utilisateur connecté
     panier, _ = Panier.objects.get_or_create(utilisateur=request.user)
 
-    # Si un panier temporaire existe dans la session
     if 'panier_temp' in request.session:
         panier_temp = request.session.pop('panier_temp')
         for item in panier_temp:
-            # Récupérer le billet associé à l'ID stocké dans le panier temporaire
             billet = OffreBillet.objects.get(id=item['billet_id'])
-            # Récupérer ou créer l'achat pour l'utilisateur authentifié
             achat, created = Achat.objects.get_or_create(
                 billet=billet,
                 utilisateur=request.user,
                 defaults={'quantité': item['quantité'], 'epreuve_id': item['epreuve_id']}
             )
             if not created:
-                # Si l'achat existe déjà, augmenter la quantité
                 achat.quantité += item['quantité']
                 achat.save()
+            achat.panier = panier
+            achat.save()
 
-            # Ajout du lien entre l'achat et le panier
-            panier.achats.add(achat)
-
-    # Calculer le total du panier en fonction de la quantité et du prix de chaque billet
     total = 0
-    achats = []
-    for achat in Achat.objects.filter(panier=panier):
+    achats = Achat.objects.filter(panier=panier)
+    for achat in achats:
         montant_total = achat.quantité * achat.billet.prix
-        achat.montant_total = montant_total  # Assignez directement à l'objet achat
+        achat.montant_total = montant_total
         total += montant_total
-        achats.append(achat)  # Ajoutez l'achat à la liste des achats
 
     return render(request, 'store/panier.html', {'panier': panier, 'total': total, 'achats': achats})
 
