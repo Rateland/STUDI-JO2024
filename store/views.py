@@ -142,8 +142,9 @@ def paiement(request):
     utilisateur = request.user
     try:
         panier = Panier.objects.get(utilisateur=utilisateur)
-        if panier.achats.exists():
-            total = sum(achat.quantité * achat.billet.prix for achat in Achat.objects.filter(panier=panier))
+        achats = Achat.objects.filter(panier=panier)
+        if achats.exists():
+            total = sum(achat.quantité * achat.billet.prix for achat in achats)
 
             # Simuler le paiement
             transaction_id, status = simulate_payment(total)
@@ -164,7 +165,7 @@ def paiement(request):
                     utilisateur=utilisateur,
                     montant_total=total
                 )
-                ticket.achats.set(panier.achats.all())
+                ticket.achats.set(achats)
                 ticket.save()
 
                 # Générer le code QR

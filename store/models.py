@@ -51,10 +51,14 @@ class Panier(models.Model):
     def __str__(self):
         return self.utilisateur.username if self.utilisateur else "Panier temporaire"
 
+    @property
+    def achats(self):
+        return self.achat_set.all()
+
 class Achat(models.Model):
     utilisateur = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
     billet = models.ForeignKey(OffreBillet, on_delete=models.CASCADE)
-    panier = models.ForeignKey(Panier, on_delete=models.CASCADE, null=True, blank=True)  # Associer directement à un panier
+    panier = models.ForeignKey(Panier, on_delete=models.CASCADE, null=True, blank=True, related_name="achats")  # Associer directement à un panier
     quantité = models.IntegerField(default=1)
     acheté = models.BooleanField(default=False)
     epreuve = models.ForeignKey(Epreuve, on_delete=models.CASCADE, null=True, blank=True)
