@@ -1,9 +1,9 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from django.contrib.auth.models import User
+from .models import CustomUser
 from django.utils.translation import gettext_lazy as _
 
-class UserAdmin(BaseUserAdmin):
+class CustomUserAdmin(BaseUserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
@@ -31,9 +31,8 @@ class UserAdmin(BaseUserAdmin):
     search_fields = ('username', 'first_name', 'last_name', 'email')
     ordering = ('username',)
 
-# Réenregistrer le modèle User avec notre UserAdmin personnalisé
 try:
-    admin.site.unregister(User)
+    admin.site.unregister(CustomUser)
 except admin.sites.NotRegistered:
     pass
-admin.site.register(User, UserAdmin)
+admin.site.register(CustomUser, CustomUserAdmin)

@@ -89,7 +89,7 @@ def client_page(request):
         email_form = EmailForm(instance=request.user)
         password_form = CustomPasswordChangeForm(user=request.user)
 
-    return render(request, 'store/client_page.html', {
+    return render(request, 'accounts/client_page.html', {
         'name_form': name_form,
         'email_form': email_form,
         'password_form': password_form
