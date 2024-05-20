@@ -5,6 +5,7 @@ from django.db.models import F, Sum
 from django.utils import timezone
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import get_user_model
 from django.urls import reverse
 from store.models import *
 from store.QRcode import *
@@ -25,16 +26,44 @@ def accueil(request):
 def epreuves_detail(request, slug):
     epreuve = get_object_or_404(Epreuve, slug=slug)
     offres = OffreBillet.objects.all()  # Si vous souhaitez afficher tous les types d'offres disponibles
-    return render(request, 'store/epreuves.html', {'epreuve': epreuve, 'offres': offres})
+    
+    
+    panier_total = 0
+    if request.user.is_authenticated:
+        panier, created = Panier.objects.get_or_create(utilisateur=request.user)
+        panier_total = Achat.objects.filter(panier=panier).aggregate(Sum('quantité'))['quantité__sum'] or 0
+
+    return render(request, 'store/epreuves.html', {'epreuve': epreuve, 'offres': offres, 'panier_total': panier_total})
 
 def liste_epreuves(request):
     epreuves = Epreuve.objects.all()
-    return render(request, 'store/liste_epreuves.html', {'epreuves': epreuves})
 
+    panier_total = 0
+    if request.user.is_authenticated:
+        panier, created = Panier.objects.get_or_create(utilisateur=request.user)
+        panier_total = Achat.objects.filter(panier=panier).aggregate(Sum('quantité'))['quantité__sum'] or 0
+
+    return render(request, 'store/liste_epreuves.html', {'epreuves': epreuves, 'panier_total': panier_total})
 
 def billets_detail(request, slug):
     billet = get_object_or_404(OffreBillet, slug=slug)
+
+    panier_total = 0
+    if request.user.is_authenticated:
+        panier, created = Panier.objects.get_or_create(utilisateur=request.user)
+        panier_total = Achat.objects.filter(panier=panier).aggregate(Sum('quantité'))['quantité__sum'] or 0
+
     return render(request, 'store/billets.html', context={"billet": billet})
+
+def liste_billets(request):
+    billets = OffreBillet.objects.all
+
+    panier_total = 0
+    if request.user.is_authenticated:
+        panier, created = Panier.objects.get_or_create(utilisateur=request.user)
+        panier_total = Achat.objects.filter(panier=panier).aggregate(Sum('quantité'))['quantité__sum'] or 0
+
+    return render(request, 'store/liste_offres.html', {'billets': billets, 'panier_total': panier_total})
 
 def ajout_panier(request, epreuve_slug, billet_slug):
     epreuve = get_object_or_404(Epreuve, slug=epreuve_slug)
@@ -92,7 +121,9 @@ def voir_panier(request):
         achat.montant_total = montant_total
         total += montant_total
 
-    return render(request, 'store/panier.html', {'panier': panier, 'total': total, 'achats': achats})
+    panier_total = achats.aggregate(Sum('quantité'))['quantité__sum'] or 0
+
+    return render(request, 'store/panier.html', {'panier': panier, 'total': total, 'achats': achats, 'panier_total': panier_total})
 
 def supprimer_achat(request, achat_id):
     if not request.user.is_authenticated:
@@ -107,7 +138,7 @@ def supprimer_achat(request, achat_id):
     return redirect('voir_panier')
 
 @login_required
-def procéder_au_paiement(request):
+def paiement(request):
     utilisateur = request.user
     try:
         panier = Panier.objects.get(utilisateur=utilisateur)

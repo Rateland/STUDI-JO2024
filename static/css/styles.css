@@ -373,6 +373,8 @@ html, body {
 
 /* Styles pour les champs du formulaire */
 .form-control {
+    text-align: justify;
+    color: var(--gtitle-color);
     width: 100%;
     padding: 10px;
     margin: 5px 0 15px 0;
@@ -382,10 +384,17 @@ html, body {
     box-sizing: border-box;
 }
 
+.txt_form{
+    color: var(--text-color);
+    text-align: right;
+    line-height: 1.6; /* Espacement entre les lignes de texte */
+    margin-bottom: 20px; /* Ajoute un espacement en bas du paragraphe */
+}
+
 /* Style pour le bouton de connexion */
 button.card {
     border: none;
-    color: white;
+    color: var(--gtitle-color);
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;

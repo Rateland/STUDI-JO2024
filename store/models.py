@@ -7,7 +7,6 @@ from Jeux_Olympiques_France.settings import AUTH_USER_MODEL
 
 
 # Create your models here.
-
 class Epreuve(models.Model):
     titre = models.CharField(max_length=200, verbose_name="Titre de l’épreuve")
     slug = models.SlugField(max_length=128)

@@ -1,5 +1,6 @@
 from django import forms
 from store.models import *
+from django.contrib.auth.models import User
 
 class Ajout_Panier(forms.ModelForm):
     billet = forms.ModelChoiceField(queryset=OffreBillet.objects.all())

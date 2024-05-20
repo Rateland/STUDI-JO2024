@@ -1,7 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model, login, logout, authenticate
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserChangeForm
 from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
+from .forms import *
 from store.models import *
 from store.QRcode import *
 
@@ -57,6 +61,39 @@ def login_user(request):
         return render(request, 'accounts/login.html')
     
     return render(request, 'accounts/login.html')
+
+@login_required
+def client_page(request):
+    if request.method == "POST":
+        name_form = NameForm(request.POST, instance=request.user)
+        email_form = EmailForm(request.POST, instance=request.user)
+        password_form = CustomPasswordChangeForm(user=request.user, data=request.POST)
+
+        if 'name_submit' in request.POST and name_form.is_valid():
+            name_form.save()
+            messages.success(request, "Votre nom et prénom ont été mis à jour avec succès.")
+            return redirect('client_page')
+
+        if 'email_submit' in request.POST and email_form.is_valid():
+            email_form.save()
+            messages.success(request, "Votre adresse e-mail a été mise à jour avec succès.")
+            return redirect('client_page')
+
+        if 'password_submit' in request.POST and password_form.is_valid():
+            user = password_form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, "Votre mot de passe a été mis à jour avec succès.")
+            return redirect('client_page')
+    else:
+        name_form = NameForm(instance=request.user)
+        email_form = EmailForm(instance=request.user)
+        password_form = CustomPasswordChangeForm(user=request.user)
+
+    return render(request, 'store/client_page.html', {
+        'name_form': name_form,
+        'email_form': email_form,
+        'password_form': password_form
+    })
 
 def logout_user(request):
     logout(request)

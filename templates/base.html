@@ -20,11 +20,11 @@
         <nav class="main-nav" aria-label="Navigation principale">
             <h4><a href="{% url 'accueil' %}" class="card slideIn">Accueil</a></h4>
             {% if user.is_authenticated %}
-                <a class="main-nav card simple_titre" >{{ user.username }}, vous êtes bien connecté</a>
+                <a class="main-nav card simple_titre" >Bienvenue, {{ user.username }}</a>
                 <h4><a href="{% url 'logout' %}" class="card slideIn">Déconnexion</a></h4>
                 <h4><a href="{% url 'voir_panier' %}" class="panier-link card slideIn">
                     {% if panier_total > 0 %}
-                        (Il y a {{ panier_total }} articles)
+                        {{ panier_total }} article(s) au panier
                     {% else %}
                         Le panier est vide
                     {% endif %}
@@ -35,6 +35,11 @@
                 <h4><a href="{% url 'voir_panier' %}" class="panier-link card slideIn">Panier</a></h4>
             {% endif %}
         </nav>
+        {% if user.is_authenticated %}
+        <p>Accédez à votre <a href="{% url 'client_page' %}">Compte Client</a></p>
+        {% else %}
+        <p></p>
+        {% endif %}
     </div>
 </header>
 <main class="content container">

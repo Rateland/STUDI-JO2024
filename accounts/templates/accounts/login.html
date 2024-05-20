@@ -16,18 +16,18 @@
 <div class="container">
     <form method="POST" action="{% url 'login' %}">
         {% csrf_token %}
-        <p class="txt">
-            <label for="email">Courriel :</label>
-            <input id="email" type="email" name="email" class="form-control card" required>
+        <p class="txt_form">
+            <label for="username">Nom d’utilisateur :</label>
+            <input id="username" type="username" name="username" class="form-control card" required>
         </p>
-        <p class="txt">
+        <p class="txt_form">
             <label for="password">Mot de passe :</label>
             <input id="password" type="password" name="password" class="form-control card" required>
         </p>
-        <button type="submit" class="txt button.card card">Se connecter</button>
+        <button type="submit" class="button.card card">Se connecter</button>
     </form>
 </div>
 <div class="container">
-    <p class="text fadeIn card">Vous n'avez pas encore de compte ? <a href="{% url 'signup' %}">Inscrivez-vous</a>.</p>
+    <p class="fadeIn button.card card">Vous n'avez pas encore de compte ? <a href="{% url 'signup' %}">Inscrivez-vous</a>.</p>
 </div>
 {% endblock %}

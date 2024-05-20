@@ -18,9 +18,11 @@
         {% endfor %}
     </ul>
     <p>Total: {{ total }}€</p>
-    <a href="{% url 'proceder_au_paiement' %}" class="btn btn-primary">Procéder au paiement</a>
+    <a href="{% url 'paiement' %}" class="btn btn-primary">Procéder au paiement</a>
 {% else %}
 <p>Votre panier est vide.</p>
 {% endif %}
+<div class="card">
 <span><a href="{% url 'accueil' %}">Retour à la page d'accueil</a></span>
+</div>
 {% endblock %}
