@@ -2,6 +2,9 @@ from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.db import transaction
 from django.db.models import F, Sum
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 from django.utils import timezone
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -176,6 +179,7 @@ def paiement(request):
                 panier.save()
 
                 messages.success(request, "Paiement réussi. Merci pour votre achat !")
+                send_confirmation_email(ticket)
                 return render(request, 'store/confirmation_paiement.html', {'ticket': ticket})
             except Exception as e:
                 messages.error(request, f"Erreur lors de la création du ticket ou de la transaction : {str(e)}")
@@ -186,3 +190,12 @@ def paiement(request):
     except Panier.DoesNotExist:
         messages.error(request, "Panier introuvable.")
         return redirect('voir_panier')
+
+def send_confirmation_email(ticket):
+    subject = 'Votre ticket pour les Jeux Olympiques'
+    html_message = render_to_string('store/email_confirmation.html', {'ticket': ticket})
+    plain_message = strip_tags(html_message)
+    from_email = 'etudiantstudi@gmail.com'
+    to = ticket.utilisateur.email
+
+    send_mail(subject, plain_message, from_email, [to], html_message=html_message)
