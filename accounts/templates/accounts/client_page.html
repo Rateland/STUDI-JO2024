@@ -1,29 +1,31 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container">
-    <h1>Mon Compte</h1>
+    <h1 class="site-title">Mon Compte</h1>
+    <div>
+        <h2  class="mtitre">Modifier le Nom et le Prénom</h2>
+            <form method="post" action="{% url 'client_page' %}">
+                {% csrf_token %}
+                {{ name_form.as_p }}
+                <button type="submit" name="name_submit" class="button.card card">Mettre à jour</button>
+            </form>
 
-    <h2>Modifier le Nom et le Prénom</h2>
-    <form method="post" action="{% url 'client_page' %}">
-        {% csrf_token %}
-        {{ name_form.as_p }}
-        <button type="submit" name="name_submit" class="btn btn-primary">Mettre à jour</button>
-    </form>
+        <h2 class="mtitre">Modifier l'Adresse E-mail</h2>
+            <form method="post" action="{% url 'client_page' %}">
+                {% csrf_token %}
+                {{ email_form.as_p }}
+                <button type="submit" name="email_submit" class="button.card card">Mettre à jour</button>
+            </form>
 
-    <h2>Modifier l'Adresse E-mail</h2>
-    <form method="post" action="{% url 'client_page' %}">
-        {% csrf_token %}
-        {{ email_form.as_p }}
-        <button type="submit" name="email_submit" class="btn btn-primary">Mettre à jour</button>
-    </form>
-
-    <h2>Modifier le Mot de Passe</h2>
-    <form method="post" action="{% url 'client_page' %}">
-        {% csrf_token %}
-        {{ password_form.as_p }}
-        <button type="submit" name="password_submit" class="btn btn-primary">Mettre à jour</button>
-    </form>
-
-    <a href="{% url 'accueil' %}" class="btn btn-secondary">Retour à l'accueil</a>
+        <h2 class="mtitre">Modifier le Mot de Passe</h2>
+            <form method="post" action="{% url 'client_page' %}">
+                {% csrf_token %}
+                {{ password_form.as_p }}
+                <button type="submit" name="password_submit" class="button.card card">Mettre à jour</button>
+            </form>
+    </div>
+    <div>
+        <a href="{% url 'accueil' %}" class="card">Retour à l'accueil</a>
+    </div>
 </div>
 {% endblock %}

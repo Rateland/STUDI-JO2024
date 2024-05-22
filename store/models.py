@@ -8,6 +8,7 @@ from Jeux_Olympiques_France.settings import AUTH_USER_MODEL
 
 # Create your models here.
 class Epreuve(models.Model):
+    id = models.AutoField(primary_key=True)
     titre = models.CharField(max_length=200, verbose_name="Titre de l’épreuve")
     slug = models.SlugField(max_length=128)
     type = models.CharField(max_length=128, verbose_name="Type d’épreuve", blank=True, null=True)
@@ -35,10 +36,10 @@ class OffreBillet(models.Model):
     stock = models.IntegerField(default=0)
     prix = models.DecimalField(default=0.0, max_digits=6, decimal_places=2, validators=[MinValueValidator(0.01)], verbose_name="Prix de l’offre")
     nombre_personnes = models.PositiveIntegerField(verbose_name="Nombre de personne par billet")
-    epreuve = models.ForeignKey(Epreuve, null=True, related_name='offres', on_delete=models.CASCADE, verbose_name="Épreuve associée")
+    epreuve = models.ForeignKey(Epreuve, null=True, related_name='offres', on_delete=models.CASCADE, verbose_name="Épreuve associée", blank=True)
 
     def __str__(self):
-        return f"Offre {self.get_nom_display()} - {self.prix}€ - {self.stock} de places restantes"
+        return f"Offre {self.get_nom_display()} - {self.prix}€ - {self.stock} places restantes"
     
     def get_absolute_url(self):
         return reverse("billets", kwargs={"slug": self.slug})

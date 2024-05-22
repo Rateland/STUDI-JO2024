@@ -1,28 +1,29 @@
 {% extends 'base.html' %}
 {% block content %}
-{% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-            <li class="{{ message.tags }}">{{ message }}</li>
-        {% endfor %}
-    </ul>
-{% endif %}
-<h1>Votre Panier</h1>
-{% if achats %}
-    <ul>
-        {% for achat in achats %}
-        <li>
-            {{ achat.billet.nom }} - {{ achat.quantité }} x {{ achat.billet.prix }}€ = {{ achat.montant_total|floatformat:2 }}€
-            <a href="{% url 'supprimer_achat' achat.id %}">Supprimer</a>
-        </li>
-        {% endfor %}
-    </ul>
-    <p>Total: {{ total }}€</p>
-    <a href="{% url 'paiement' %}" class="btn btn-primary">Procéder au paiement</a>
-{% else %}
-<p>Votre panier est vide.</p>
-{% endif %}
-<div class="card">
-<span><a href="{% url 'accueil' %}">Retour à la page d'accueil</a></span>
-</div>
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <h1>Votre Panier</h1>
+        {% if achats %}
+            <ul>
+                {% for achat in achats %}
+                <li>
+                    {{ achat.billet.nom }} - {{ achat.quantité }} x {{ achat.billet.prix }}€ = {{ achat.montant_total|floatformat:2 }}€
+                    <a href="{% url 'supprimer_achat' achat.id %}">Supprimer</a>
+                </li>
+                {% endfor %}
+            </ul>
+            <p>Total: {{ total }}€</p>
+            <a href="{% url 'paiement' %}" class="button.card card">Procéder au paiement</a>
+        {% else %}
+            <p>Votre panier est <i>vide</i>.</p>
+        {% endif %}
+    
+        <div class="card">
+            <span><a href="{% url 'accueil' %}">Retour à la page d'accueil</a></span>
+        </div>
 {% endblock %}
