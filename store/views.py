@@ -26,6 +26,9 @@ def accueil(request):
 
     return render(request, 'store/accueil.html', context={"epreuves": epreuves, "billets": billets, "panier_total": panier_total})
 
+def mentions_legales(request):
+    return render(request, 'mentions_legales.html')
+
 def epreuves_detail(request, slug):
     epreuve = get_object_or_404(Epreuve, slug=slug)
     offres = OffreBillet.objects.all()  # Si vous souhaitez afficher tous les types d'offres disponibles

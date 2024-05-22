@@ -9,6 +9,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 # note pour retravailler ça : path('lechemin/', lavue, name="lechemin")
 urlpatterns = [
     path('', accueil, name='accueil'),
+    path('mentions_legales', mentions_legales, name="mentions_legales"),
     path('admin/', admin.site.urls),
     path('signup/', signup, name="signup"),
     path('logout/', logout_user, name="logout"),
