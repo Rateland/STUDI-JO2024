@@ -26,14 +26,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 from decouple import config
-SECRET_KEY = config('DJANGO_SECRET_KEY', default='votre_clé_secrète_par_défaut')
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = os.getenv('SECRET_KEY', 'default-secret-key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DJANGO_DEBUG', default=False, cast=bool)
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -87,13 +85,13 @@ WSGI_APPLICATION = 'Jeux_Olympiques_France.wsgi.application'
 
 DATABASES = {
     'default': {
-        'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'bdd_jo',
-        'USER': 'gautier',
-        'PASSWORD': 'Waldan@Hari',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'default': dj_database_url.config(default=os.getenv('DATABASE_URL')),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST', 'localhost'),
+        'PORT': os.getenv('DB_PORT', ''),
     }
 }
 DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
