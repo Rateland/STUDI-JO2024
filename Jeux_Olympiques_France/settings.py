@@ -10,7 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+import os
 from pathlib import Path
+from dotenv import load_dotenv
+import dj_database_url
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,13 +25,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-import os
 from decouple import config
-
 SECRET_KEY = config('DJANGO_SECRET_KEY', default='votre_clé_secrète_par_défaut')
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DJANGO_DEBUG', default=False, cast=bool)
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = []
 
@@ -82,6 +87,7 @@ WSGI_APPLICATION = 'Jeux_Olympiques_France.wsgi.application'
 
 DATABASES = {
     'default': {
+        'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'bdd_jo',
         'USER': 'gautier',
