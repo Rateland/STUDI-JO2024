@@ -1,0 +1,1 @@
+web: gunicorn Jeux_Olympiques_France.wsgi --log-file -
