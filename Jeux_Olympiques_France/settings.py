@@ -85,8 +85,7 @@ WSGI_APPLICATION = 'Jeux_Olympiques_France.wsgi.application'
 
 DATABASES = {
     'default': {
-        'default': dj_database_url.config(
-        default=config('DATABASE_URL'),
+        'default': dj_database_url.config(default=config('DATABASE_URL')),
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': os.getenv('DB_NAME'),
         'USER': os.getenv('DB_USER'),
