@@ -1,13 +1,13 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import get_user_model, login, logout, authenticate
+from django.contrib.auth import get_user_model, login, logout, authenticate, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.forms import UserChangeForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
+from django.contrib.auth.views import PasswordChangeView
 from django.contrib import messages
-from django.contrib.auth import update_session_auth_hash
 from .forms import *
 from store.models import *
 from store.QRcode import *
+from django.urls import reverse_lazy
 
 User = get_user_model()
 
