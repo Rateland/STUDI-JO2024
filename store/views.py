@@ -2,7 +2,8 @@ from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.db import transaction
 from django.db.models import F, Sum
-from django.core.mail import send_mail
+from django.core.mail import BadHeaderError, send_mail
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.utils import timezone
@@ -198,7 +199,7 @@ def send_confirmation_email(ticket):
     subject = 'Votre ticket pour les Jeux Olympiques'
     html_message = render_to_string('store/email_confirmation.html', {'ticket': ticket})
     plain_message = strip_tags(html_message)
-    from_email = 'etudiantstudi@gmail.com'
+    # from_email = 'etudiantstudi@gmail.com'
     to = ticket.utilisateur.email
 
     send_mail(subject, plain_message, from_email, [to], html_message=html_message)

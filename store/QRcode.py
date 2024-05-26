@@ -13,7 +13,7 @@ def generate_unique_id():
 # Simule un paiement en renvoyant un statut et un identifiant de transaction
 def simulate_payment(amount):
     transaction_id = generate_unique_id()
-    status = "reussi" if amount > 0 else "echoue"
+    status = "réussi" if amount > 0 else "échoué"
     return transaction_id, status
 
 # Génère un code QR pour un ticket
