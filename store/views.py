@@ -199,7 +199,7 @@ def send_confirmation_email(ticket):
     subject = 'Votre ticket pour les Jeux Olympiques'
     html_message = render_to_string('store/email_confirmation.html', {'ticket': ticket})
     plain_message = strip_tags(html_message)
-    # from_email = 'etudiantstudi@gmail.com'
+    from_email = 'etudiantstudi@gmail.com'
     to = ticket.utilisateur.email
 
-    send_mail(subject, plain_message, from_email, [to], html_message=html_message)
+    #send_mail(subject, plain_message, from_email, [to], html_message=html_message)
