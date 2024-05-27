@@ -60,3 +60,22 @@ class AccountIntegrationTest(TestCase):
         self.client.login(username='testuser', password='testpassword')
         response = self.client.get(reverse('voir_panier'))
         self.assertEqual(response.status_code, 200)
+    
+    def test_user_registration(self):
+    response = self.client.post('/register/', {
+        'username': 'testuser',
+        'password1': 'testpass123',
+        'password2': 'testpass123',
+        'email': 'test@example.com'
+    })
+    self.assertEqual(response.status_code, 200)
+    self.assertTrue(User.objects.filter(username='testuser').exists())
+
+def test_user_login(self):
+    User.objects.create_user(username='testuser', password='testpass123')
+    response = self.client.post('/login/', {
+        'username': 'testuser',
+        'password': 'testpass123'
+    })
+    self.assertEqual(response.status_code, 200)
+    self.assertTrue(response.wsgi_request.user.is_authenticated)

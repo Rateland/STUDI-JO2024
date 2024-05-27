@@ -70,3 +70,33 @@ class AchatIntegrationTest(TestCase):
         self.assertEqual(response.status_code, 302)
         panier = Panier.objects.get(utilisateur=self.user)
         self.assertEqual(panier.achats.count(), 1)
+    
+    def test_add_to_cart(self):
+        epreuve = Epreuve.objects.create(titre="Epreuve Test", slug="epreuve-test")
+        offre = OffreBillet.objects.create(
+            nom="Solo",
+            slug="solo",
+            description="Offre Solo",
+            epreuve=epreuve
+        )
+        response = self.client.post('/cart/add/', {'offre_id': offre.id, 'quantity': 1})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.client.session['cart'][str(offre.id)], 1)
+
+    def test_payment_process(self):
+        epreuve = Epreuve.objects.create(titre="Epreuve Test", slug="epreuve-test")
+        offre = OffreBillet.objects.create(
+            nom="Solo",
+            slug="solo",
+            description="Offre Solo",
+            epreuve=epreuve
+        )
+        self.client.post('/cart/add/', {'offre_id': offre.id, 'quantity': 1})
+        response = self.client.post('/checkout/', {
+            'name': 'Test User',
+            'address': '123 Test St',
+            'city': 'Testville',
+            'payment_method': 'card'
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(Panier.objects.filter(utilisateur=self.user).exists())
