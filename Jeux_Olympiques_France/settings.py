@@ -15,6 +15,8 @@ from pathlib import Path
 from dotenv import load_dotenv
 import dj_database_url
 from decouple import config
+from django.conf import settings
+from jinja2 import Environment, FileSystemLoader
 
 load_dotenv()
 
@@ -89,10 +91,29 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'Jeux_Olympiques_France.urls'
 
+def jinja2_environment(**options):
+    env = Environment(**options)
+    env.globals.update({
+        'static': settings.STATIC_URL,
+        'url': 'django.urls.reverse',
+    })
+    return env
+
 TEMPLATES = [
     {
+        'BACKEND': 'django.template.backends.jinja2.Jinja2',
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'environment': 'Jeux_Olympiques_France.settings.jinja2_environment',
+            'loader': FileSystemLoader([
+                os.path.join(BASE_DIR, 'templates'),
+            ]),
+        },
+    },
+    {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / "templates"],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

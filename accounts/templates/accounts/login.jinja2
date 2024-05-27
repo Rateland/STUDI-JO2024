@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base.jinja2' %}
 
 {% block content %}
 {% if messages %}
@@ -14,7 +14,7 @@
     <h1 class="site-title">Connexion</h1>
 </div>
 <div class="container">
-    <form method="POST" action="{% url 'login' %}">
+    <form method="POST" action="{{ url('login') }}">
         {% csrf_token %}
         <p class="txt_form">
             <label for="username">Nom d’utilisateur :</label>
@@ -28,6 +28,6 @@
     </form>
 </div>
 <div class="container">
-    <p class="fadeIn button.card card">Vous n'avez pas encore de compte ? <a href="{% url 'signup' %}">Inscrivez-vous</a>.</p>
+    <p class="fadeIn button.card card">Vous n'avez pas encore de compte ? <a href="{{ url ('signup') }}">Inscrivez-vous</a>.</p>
 </div>
 {% endblock %}

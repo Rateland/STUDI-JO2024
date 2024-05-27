@@ -25,10 +25,10 @@ def accueil(request):
     else:
         panier_total = 0
 
-    return render(request, 'store/accueil.html', context={"epreuves": epreuves, "billets": billets, "panier_total": panier_total})
+    return render(request, 'store/accueil.jinja2', context={"epreuves": epreuves, "billets": billets, "panier_total": panier_total})
 
 def mentions_legales(request):
-    return render(request, 'mentions_legales.html')
+    return render(request, 'mentions_legales.jinja2')
 
 def epreuves_detail(request, slug):
     epreuve = get_object_or_404(Epreuve, slug=slug)
@@ -40,7 +40,7 @@ def epreuves_detail(request, slug):
         panier, created = Panier.objects.get_or_create(utilisateur=request.user)
         panier_total = Achat.objects.filter(panier=panier).aggregate(Sum('quantité'))['quantité__sum'] or 0
 
-    return render(request, 'store/epreuves.html', {'epreuve': epreuve, 'offres': offres, 'panier_total': panier_total})
+    return render(request, 'store/epreuves.jinja2', {'epreuve': epreuve, 'offres': offres, 'panier_total': panier_total})
 
 def liste_epreuves(request):
     epreuves = Epreuve.objects.all()
@@ -50,7 +50,7 @@ def liste_epreuves(request):
         panier, created = Panier.objects.get_or_create(utilisateur=request.user)
         panier_total = Achat.objects.filter(panier=panier).aggregate(Sum('quantité'))['quantité__sum'] or 0
 
-    return render(request, 'store/liste_epreuves.html', {'epreuves': epreuves, 'panier_total': panier_total})
+    return render(request, 'store/liste_epreuves.jinja2', {'epreuves': epreuves, 'panier_total': panier_total})
 
 def billets_detail(request, slug):
     billet = get_object_or_404(OffreBillet, slug=slug)
@@ -60,7 +60,7 @@ def billets_detail(request, slug):
         panier, created = Panier.objects.get_or_create(utilisateur=request.user)
         panier_total = Achat.objects.filter(panier=panier).aggregate(Sum('quantité'))['quantité__sum'] or 0
 
-    return render(request, 'store/billets.html', context={"billet": billet})
+    return render(request, 'store/billets.jinja2', context={"billet": billet})
 
 def liste_billets(request):
     billets = OffreBillet.objects.all
@@ -70,7 +70,7 @@ def liste_billets(request):
         panier, created = Panier.objects.get_or_create(utilisateur=request.user)
         panier_total = Achat.objects.filter(panier=panier).aggregate(Sum('quantité'))['quantité__sum'] or 0
 
-    return render(request, 'store/liste_offres.html', {'billets': billets, 'panier_total': panier_total})
+    return render(request, 'store/liste_offres.jinja2', {'billets': billets, 'panier_total': panier_total})
 
 def ajout_panier(request, epreuve_slug, billet_slug):
     epreuve = get_object_or_404(Epreuve, slug=epreuve_slug)
@@ -130,7 +130,7 @@ def voir_panier(request):
 
     panier_total = achats.aggregate(Sum('quantité'))['quantité__sum'] or 0
 
-    return render(request, 'store/panier.html', {'panier': panier, 'total': total, 'achats': achats, 'panier_total': panier_total})
+    return render(request, 'store/panier.jinja2', {'panier': panier, 'total': total, 'achats': achats, 'panier_total': panier_total})
 
 def supprimer_achat(request, achat_id):
     if not request.user.is_authenticated:
@@ -184,7 +184,7 @@ def paiement(request):
 
                 messages.success(request, "Paiement réussi. Merci pour votre achat !")
                 send_confirmation_email(ticket)
-                return render(request, 'store/confirmation_paiement.html', {'ticket': ticket})
+                return render(request, 'store/confirmation_paiement.jinja2', {'ticket': ticket})
             except Exception as e:
                 messages.error(request, f"Erreur lors de la création du ticket ou de la transaction : {str(e)}")
                 return redirect('voir_panier')
@@ -197,7 +197,7 @@ def paiement(request):
 
 def send_confirmation_email(ticket):
     subject = 'Votre ticket pour les Jeux Olympiques'
-    html_message = render_to_string('store/email_confirmation.html', {'ticket': ticket})
+    html_message = render_to_string('store/email_confirmation.jinja2', {'ticket': ticket})
     plain_message = strip_tags(html_message)
     from_email = 'etudiantstudi@gmail.com'
     to = ticket.utilisateur.email
