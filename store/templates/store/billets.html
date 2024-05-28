@@ -1,4 +1,4 @@
-{% extends 'base.jinja2' %}
+{% extends 'base.html' %}
 
 {% block content %}
 
@@ -8,6 +8,6 @@
     <p class="billet-price">Ce billet coûte <strong>{{ billet.prix }}€</strong> l’unité.</p>
     <p class="billet-stock">{{ billet.stock }} places encore disponible, prenez les vôtres !</p>
 
-    <h3><a href="{{ url('liste_epreuves') }}" class="billet-action">Consultez les épreuves et prenez vos places !</a></h3>
+    <h3><a href="{% url 'liste_epreuves' %}" class="billet-action">Consultez les épreuves et prenez vos places !</a></h3>
 </div>
 {% endblock %}

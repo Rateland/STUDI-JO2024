@@ -1,4 +1,4 @@
-{% extends 'base.jinja2' %}
+{% extends 'base.html' %}
 {% block content %}
     {% if messages %}
         <ul class="messages">
@@ -16,17 +16,17 @@
                 {% for achat in achats %}
                     <li>
                         {{ achat.billet.nom }} - {{ achat.quantité }} x {{ achat.billet.prix }}€ = {{ "%.2f"|format(achat.montant_total) }}€
-                        <a href="{{ url_for('supprimer_achat', id=achat.id) }}">Supprimer</a>
+                        <a href="{% url 'supprimer_achat', id=achat.id %}">Supprimer</a>
                     </li>
                 {% endfor %}
             </ul>
             <p>Total: {{ total }}€</p>
-            <a href="{{ url('paiement') }}" class="button.card card">Procéder au paiement</a>
+            <a href="{% url 'paiement' %}" class="button.card card">Procéder au paiement</a>
         {% else %}
             <p>Votre panier est <i>vide</i>.</p>
         {% endif %}
     
         <div class="card">
-            <span><a href="{{ url('accueil') }}">Retour à la page d'accueil</a></span>
+            <span><a href="{% url 'accueil' %}">Retour à la page d'accueil</a></span>
         </div>
 {% endblock %}

@@ -1,4 +1,4 @@
-{% extends 'base.jinja2' %}
+{% extends 'base.html' %}
 
 {% block content %}
 <h1>Toutes les offres</h1>
@@ -11,5 +11,5 @@
     </div>
     {% endfor %}
 </div>
-<h3><a href="{{ url('liste_epreuves') }}" class="back-link">Retour à la liste des épreuves</a></h3>
+<h3><a href="{% url 'liste_epreuves' %}" class="back-link">Retour à la liste des épreuves</a></h3>
 {% endblock %}

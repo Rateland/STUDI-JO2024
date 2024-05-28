@@ -1,4 +1,4 @@
-{% extends 'base.jinja2' %}
+{% extends 'base.html' %}
 {% block content %}
     <h1>Paiement Réussi</h1>
     <p>Merci pour votre achat. Voici les détails de votre transaction :</p>
@@ -8,5 +8,5 @@
         <li>Montant total : {{ transaction.montant_total }} €</li>
         <li>Statut : {{ transaction.status }}</li>
     </ul>
-    <a href="{{ url('accueil') }}">Retour à l'accueil</a>
+    <a href="{% url 'accueil' %}">Retour à l'accueil</a>
 {% endblock %}

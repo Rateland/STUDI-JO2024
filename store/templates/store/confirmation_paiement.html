@@ -1,4 +1,4 @@
-{% extends 'base.jinja2' %}
+{% extends 'base.html' %}
 
 {% block content %}
 <h1>Paiement Réussi</h1>
@@ -17,5 +17,5 @@
 <p>Le code QR n'est pas disponible.</p>
 {% endif %}
 
-<a href="{{ url('accueil') }}">Retour à l'accueil</a>
+<a href="{% url 'accueil' %}">Retour à l'accueil</a>
 {% endblock %}
