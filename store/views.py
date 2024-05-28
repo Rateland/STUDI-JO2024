@@ -182,6 +182,9 @@ def paiement(request):
                 panier.date_achat = timezone.now()
                 panier.save()
 
+                # Vider le panier
+                achats.delete()
+
                 messages.success(request, "Paiement réussi. Merci pour votre achat !")
                 send_confirmation_email(ticket)
                 return render(request, 'store/confirmation_paiement.html', {'ticket': ticket})
