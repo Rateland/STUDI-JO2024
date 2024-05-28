@@ -19,7 +19,7 @@
         <img src="{% static 'img/MassScott.webp' %}" alt="Image 2" class="header-image">
         <nav class="main-nav" aria-label="Navigation principale">
             <h4><a href="{% url 'accueil' %}" class="card slideIn">Accueil</a></h4>
-            {% if user.is_authenticated() %}
+            {% if user.is_authenticated %}
                 <a class="main-nav card simple_titre" >Bienvenue, {{ user.username }}</a>
                 <h4><a href="{% url 'logout' %}" class="card slideIn">Déconnexion</a></h4>
                 <h4><a href="{% url 'voir_panier' %}" class="panier-link card slideIn">
