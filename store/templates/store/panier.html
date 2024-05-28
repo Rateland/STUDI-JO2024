@@ -16,7 +16,7 @@
                 {% for achat in achats %}
                     <li>
                         {{ achat.billet.nom }} - {{ achat.quantité }} x {{ achat.billet.prix }}€ = {{ achat.montant_total|floatformat:2 }}€
-                        <a href="{% url 'supprimer_achat' id=achat.id %}">Supprimer</a>
+                        <a href="{% url 'supprimer_achat' achat_id=achat.id %}">Supprimer</a>
                     </li>
                 {% endfor %}
             </ul>
