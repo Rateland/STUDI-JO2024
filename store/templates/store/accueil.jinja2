@@ -1,4 +1,5 @@
 {% extends 'base.jinja2' %}
+from jinja2 import Environment, FileSystemLoader
 
 {% block content %}
 <div class="fadeIn">
@@ -12,7 +13,7 @@
     En somme, les Jeux Olympiques ne sont pas juste une série d’épreuves sportives ; ils sont une célébration de l’humanité, de ses diversités et de son potentiel extraordinaire. Que vous soyez un passionné de sport, un amateur d'histoire, ou simplement en quête de moments d'exception, les Jeux Olympiques vous offrent un spectacle sans pareil, riche en émotions et en découvertes. Ne manquez pas l’occasion de faire partie de l'histoire et de vivre des émotions qui resteront gravées à jamais dans votre mémoire.</p>
 </div>
 
-<h2 class="simple_titre"><a href="{{ url(liste_epreuves) }}" class="button-click fadeIn">Les épreuves</a></h2>
+<h2 class="simple_titre"><a href="{{ ('liste_epreuves.jinja2') }}" class="button-click fadeIn">Les épreuves</a></h2>
 <div class="epreuves-container">
     {% for epreuve in epreuves %}
     <div class="card slideIn">
@@ -39,6 +40,6 @@
 <div>
     <h2 class="fadeIn simple_titre">Réservez Votre Place Maintenant – Quantité et Disponibilité Limitées !</h2>
     <p class="slideIn txt">Ne manquez pas votre chance de faire partie de l'histoire des Jeux Olympiques ! Nos billets pour une journée d'accès illimité aux épreuves sont disponibles en nombre strictement limité. En raison de la forte demande et des capacités d'accueil contrôlées, nous vous encourageons à sécuriser votre place dès maintenant. Chaque moment compte et chaque billet vous rapproche de l'action olympique – une expérience à ne pas rater. Agissez rapidement pour garantir votre présence et vivre une journée inoubliable au cœur de l'émotion olympique. Achetez aujourd'hui pour éviter toute déception et rejoignez les spectateurs du monde entier dans cette célébration sportive mondiale.</p>
-    <p class="card fadeIn txt">Je prends mes <a href="{{ url(liste_epreuves) }}" class="button-click txt">places</a> !</p> 
+    <p class="card fadeIn txt">Je prends mes <a href="{{ ('liste_epreuves.jinja2') }}" class="button-click txt">places</a> !</p> 
 </div>
 {% endblock %}
