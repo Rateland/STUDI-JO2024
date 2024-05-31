@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.conf import settings
+from django.utils.html import format_html
 from django.core.validators import MinValueValidator
 from django.core.exceptions import ValidationError
 from Jeux_Olympiques_France.settings import AUTH_USER_MODEL
@@ -43,6 +44,11 @@ class OffreBillet(models.Model):
     
     def get_absolute_url(self):
         return reverse("billets", kwargs={"slug": self.slug})
+    
+    def formatted_stock(self):
+        return f"{self.stock:,}".replace(",", " ")
+    
+    formatted_stock.short_description = "Stock (formaté)"
 
 class Panier(models.Model):
     utilisateur = models.OneToOneField(AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
@@ -84,7 +90,8 @@ class Ticket(models.Model):
     achats = models.ManyToManyField(Achat)
     date_creation = models.DateTimeField(auto_now_add=True)
     qr_code = models.ImageField(upload_to='qr_codes/', blank=True, null=True)
-
+    payé = models.BooleanField(default=False)
+    
     def __str__(self):
         return f"Ticket {self.id} - {self.utilisateur.username} - {self.montant_total} €"
     

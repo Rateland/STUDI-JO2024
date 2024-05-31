@@ -1,5 +1,8 @@
 from django.contrib import admin
-from store.models import *
+from .models import *
+
+class OffreBilletAdmin(admin.ModelAdmin):
+    list_display = ('nom', 'prix', 'formatted_stock', 'nombre_personnes', 'epreuve')
 
 class AchatInline(admin.TabularInline):
     model = Achat
@@ -17,7 +20,7 @@ class AchatAdmin(admin.ModelAdmin):
     list_filter = ('epreuve',)
 
 # Register your models here.
-admin.site.register(OffreBillet)
+admin.site.register(OffreBillet, OffreBilletAdmin)
 admin.site.register(Epreuve)
 admin.site.register(Achat, AchatAdmin)
 admin.site.register(Panier, PanierAdmin)

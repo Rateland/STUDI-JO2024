@@ -3,8 +3,11 @@ import qrcode
 import json
 from io import BytesIO
 from django.core.files import File
-from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+from store.models import *
+from django.conf import settings
 
 # Génère un identifiant unique
 def generate_unique_id():
@@ -55,16 +58,44 @@ def verifier_ticket(ticket):
     assert ticket.achats.exists(), "Aucun achat associé au ticket"
     assert ticket.qr_code, "Code QR manquant"
 
-def envoyer_email_confirmation(ticket, destinataire):
-    sujet = 'Confirmation de votre achat'
-    corps = render_to_string('store/email_confirmation.jinja2', {'ticket': ticket})
+def create_ticket_pdf(ticket):
+    buffer = BytesIO()
+    c = canvas.Canvas(buffer, pagesize=letter)
+    width, height = letter
 
-    email = EmailMessage(
-        sujet,
-        corps,
-        'votre-adresse@example.com',
-        [destinataire]
-    )
+    # Vérification de la première épreuve dans les achats
+    first_achat = ticket.achats.first()
+    if first_achat and first_achat.epreuve:
+        epreuve_titre = first_achat.epreuve.titre
+        offre_nom = first_achat.billet.nom
+    else:
+        epreuve_titre = "Épreuve inconnue"
+        offre_nom = "Offre inconnue"
+
+    # En-tête avec le nom de l'épreuve
+    c.setFont("Helvetica-Bold", 16)
+    c.drawString(100, height - 50, f"Epreuve: {epreuve_titre}")
+
+    # Sous-titre avec le type d'offre
+    c.setFont("Helvetica", 12)
+    c.drawString(100, height - 70, f"Billet: {offre_nom}")
+
+    # Ajouter le QR code au PDF
     if ticket.qr_code:
-        email.attach_file(ticket.qr_code.path)
-    email.send()
+        img_path = ticket.qr_code.path
+        c.drawImage(img_path, width - 200, height - 200, width=150, height=150)
+
+    # Détails du ticket
+    c.setFont("Helvetica", 12)
+    c.drawString(100, height - 100, f"Ticket ID: {ticket.id}")
+    c.drawString(100, height - 120, f"Utilisateur: {ticket.utilisateur.username}")
+    c.drawString(100, height - 140, f"Montant total: {ticket.montant_total} €")
+
+    # Pied de page avec l'adresse du site
+    c.setFont("Helvetica", 10)
+    c.drawString(100, 30, f"Site web: {settings.SITE_URL}")
+
+    c.showPage()
+    c.save()
+    buffer.seek(0)
+    return buffer

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Paiement Réussi</h1>
+
+<p>Merci pour votre achat. Voici les détails de votre transaction :</p>
+<ul>
+    <li>Identifiant de la transaction : {{ ticket.transaction.id }}</li>
+    <li>Date de la transaction : {{ ticket.date_creation }}</li>
+    <li>Montant total : {{ ticket.montant_total }} €</li>
+    <li>Statut : {{ ticket.transaction.status }}</li>
+</ul>
+
+{% if ticket.qr_code %}
+<h2>Votre Code QR :</h2>
+<img src="{{ ticket.qr_code.url }}" alt="QR Code du ticket">
+{% else %}
+<p>Le code QR n'est pas disponible.</p>
+{% endif %}
+
+<div class="header">
+    <h2>Votre ticket pour les Jeux Olympiques</h2>
+</div>
+<div class="content">
+    <p>Transaction ID: {{ ticket.transaction.id }}</p>
+    <p>Date: {{ ticket.transaction.date_transaction }}</p>
+    <p>Montant Total: {{ ticket.transaction.montant_total }} €</p>
+    <p>Statut: {{ ticket.transaction.status }}</p>
+    <img src="{{ ticket.qr_code.url }}" alt="QR Code">
+</div>
+<div class="footer">
+    <p>Merci pour votre achat !</p>
+</div>
+
+<a href="{% url 'accueil' %}">Retour à l'accueil</a>
+{% endblock %}

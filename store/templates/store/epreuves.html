@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3><a href="{% url 'liste_epreuves' %}" class="back-link">Retour à la liste des épreuves</a></h3>
+<div class="epreuve-header">
+    <h1 class="epreuve-title">{{ epreuve.titre }}</h1>
+    <p class="epreuve-description">Type d’épreuve : {{ epreuve.type }}</p>
+    <p class="epreuve-description">{{ epreuve.description }}</p>
+    <p class="epreuve-description">{{ epreuve.mention }}</p>
+    <p class="epreuve-date">Date de l'événement : {{ epreuve.date_epreuve }}</p>
+    {% if epreuve.illustration %}
+        <img src="{{ epreuve.illustration.url }}" alt="Illustration pour {{ epreuve.titre }}" class="epreuve-image">
+    {% else %}
+        <p class="no-illustration">Aucune illustration disponible.</p>
+    {% endif %}
+</div>
+
+<h2>Billets disponibles :</h2>
+<div class="offers-container">
+    {% if offres %}
+        {% for offre in offres %}
+            <div>
+                <p class="offer-card">Offre : {{ offre.nom }} - Prix: {{ offre.prix }}€ - Places restantes: {{ offre.formatted_stock }}</p>
+                <a href="{% url 'panier_epreuves' epreuve.slug offre.slug %}" class="add-to-cart">Ajouter au panier</a>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>Aucun billet disponible pour cette épreuve.</p>
+    {% endif %}
+</div>
+<h4>Un doute sur les offres ? Lisez le détail <a href="{% url 'liste_offres' %}" class="back-link">ici</a>.</h4>
+<h3><a href="{% url 'liste_epreuves' %}" class="back-link">Retour à la liste des épreuves</a></h3>
+{% endblock %}

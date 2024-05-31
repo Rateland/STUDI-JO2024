@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h1 class="site-title">Mon Compte</h1>
+    <div class="form-section">
+        <h2 class="mtitre">Madame / Monsieur</h2>
+        <div id="name-display">
+            <p>Prénom : {{ user.first_name }}</p>
+            <p>Nom : {{ user.last_name }}</p>
+            <button class="button.card card" onclick="toggleEdit('name')">Modifier</button>
+        </div>
+        <form id="name-form" method="post" action="{% url 'client_page' %}" class="hidden">
+            {% csrf_token %}
+            {{ name_form.as_p }}
+            <button type="submit" name="name_submit" class="button.card card">Mettre à jour</button>
+            <button type="button" class="button.card card" onclick="toggleEdit('name')">Annuler</button>
+        </form>
+    </div>
+
+    <div class="form-section">
+        <h2 class="mtitre">Nom d’utilisateur</h2>
+        <div id="username-display">
+            <p>Nom d’utilisateur : {{ user.username }}</p>
+            <button class="button.card card" onclick="toggleEdit('username')">Modifier</button>
+        </div>
+        <form id="username-form" method="post" action="{% url 'client_page' %}" class="hidden">
+            {% csrf_token %}
+            {{ username_form.as_p }}
+            <button type="submit" name="username_submit" class="button.card card">Mettre à jour</button>
+            <button type="button" class="button.card card" onclick="toggleEdit('username')">Annuler</button>
+        </form>
+    </div>
+
+    <div class="form-section">
+        <h2 class="mtitre">Adresse courriel</h2>
+        <div id="email-display">
+            <p>Adresse e-mail : {{ user.email }}</p>
+            <button class="button.card card" onclick="toggleEdit('email')">Modifier</button>
+        </div>
+        <form id="email-form" method="post" action="{% url 'client_page' %}" class="hidden">
+            {% csrf_token %}
+            {{ email_form.as_p }}
+            <button type="submit" name="email_submit" class="button.card card">Mettre à jour</button>
+            <button type="button" class="button.card card" onclick="toggleEdit('email')">Annuler</button>
+        </form>
+    </div>
+
+    <div class="form-section">
+        <h2 class="mtitre">Numéro de téléphone</h2>
+        <div id="phone-display">
+            <p>Numéro de téléphone : {{ user.phone }}</p>
+            <button class="button.card card" onclick="toggleEdit('phone')">Modifier</button>
+        </div>
+        <form id="phone-form" method="post" action="{% url 'client_page' %}" class="hidden">
+            {% csrf_token %}
+            {{ phone_form.as_p }}
+            <button type="submit" name="phone_submit" class="button.card card">Mettre à jour</button>
+            <button type="button" class="button.card card" onclick="toggleEdit('phone')">Annuler</button>
+        </form>
+    </div>
+
+    <div class="form-section">
+        <h2 class="mtitre">Mot de Passe</h2>
+        <div id="password-display">
+            <p>Mot de passe : ********</p>
+            <button class="button.card card" onclick="toggleEdit('password')">Modifier</button>
+        </div>
+        <form id="password-form" method="post" action="{% url 'client_page' %}" class="hidden">
+            {% csrf_token %}
+            {{ password_form.as_p }}
+            <button type="submit" name="password_submit" class="button.card card">Mettre à jour</button>
+            <button type="button" class="button.card card" onclick="toggleEdit('password')">Annuler</button>
+        </form>
+    </div>
+
+    <div>
+        <h2 class="mtitre">Mes Billets</h2>
+        {% if tickets %}
+            <ul>
+                {% for ticket in tickets %}
+                    <li>
+                        Ticket ID: {{ ticket.id }} - Montant: {{ ticket.montant_total }} €
+                        <a href="{% url 'telecharger_ticket' ticket.id %}" class="button.card card">Télécharger</a>
+                        <a href="{% url 'supprimer_ticket' ticket.id %}" class="button.card card">Supprimer</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="txt">Vous n’avez <i>pas encore</i> de billet !</p>
+        {% endif %}
+    </div>
+    <div class="epreuves-container">
+        <div class="card">
+            <span><a href="{% url 'accueil' %}" class="button-click txt">Retour à la page d'accueil</a></span>
+        </div>
+        <div class="card">
+            <span><a href="{% url 'liste_epreuves' %}" class="button-click txt">Je vais consulter les épreuves !</a></span>
+        </div>
+    </div>
+</div>
+{% endblock %}

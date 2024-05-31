@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <h1>Votre Panier</h1>
+        {% if achats %}
+            <ul>
+                {% for achat in achats %}
+                    <li>
+                        {{ achat.billet.nom }} - {{ achat.quantité }} x {{ achat.billet.prix }}€ = {{ achat.montant_total|floatformat:2 }}€
+                        <a href="{% url 'supprimer_achat' achat_id=achat.id %}">Supprimer</a>
+                    </li>
+                {% endfor %}
+            </ul>
+            <p>Total: {{ total }}€</p>
+            <a href="{% url 'paiement' %}" class="button.card card">Procéder au paiement</a>
+        {% else %}
+            <p>Votre panier est <i>vide</i>.</p>
+        {% endif %}
+    
+    <div class="epreuves-container">
+        <div class="card">
+            <span><a href="{% url 'accueil' %}" class="button-click txt">Retour à la page d'accueil</a></span>
+        </div>
+        <div class="card">
+            <span><a href="{% url 'liste_epreuves' %}" class="button-click txt">Je vais consulter les épreuves !</a></span>
+        </div>
+    </div>
+</div>
+{% if request.session.pdf_downloaded %}
+<script>
+    // Supprime l'indicateur de session après le rafraîchissement pour éviter des rafraîchissements répétés
+    fetch("{% url 'clear_pdf_downloaded_flag' %}");
+
+    // Rafraîchisse la page après 3 secondes (3000 millisecondes)
+    setTimeout(function() {
+        window.location.reload();
+    }, 3000);
+</script>
+{% endif %}
+{% endblock %}

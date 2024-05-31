@@ -88,7 +88,7 @@
     align-items: center;
     margin-top: 10px;
     text-decoration-color: #323232;
-    margin: 0 5px;
+    margin: 0 3px;
 }
 
 .main-nav h4 a {
@@ -387,7 +387,7 @@ html, body {
 
 .txt_form{
     color: var(--text-color);
-    text-align: right;
+    text-align: left;
     line-height: 1.6; /* Espacement entre les lignes de texte */
     margin-bottom: 20px; /* Ajoute un espacement en bas du paragraphe */
 }
@@ -428,4 +428,11 @@ button.card {
 .alert-error {
     background-color: #f2dede;
     color: #a94442;
+}
+
+.hidden {
+    display: none;
+}
+.form-section {
+    margin-bottom: 20px;
 }

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Les toutes nouvelles épreuves Olympiques !</h1>
+<div class="epreuves-container">
+    {% for epreuve in epreuves %}
+    <div class="card">
+        {% if epreuve.illustration %}
+        <img src="{{ epreuve.illustration.url }}" alt="Illustration pour {{ epreuve.titre }}" class="epreuve-image">
+    {% else %}
+        <p></p>
+    {% endif %}
+        <h3><a href="{{ epreuve.get_absolute_url }}" class="epreuve-link">{{ epreuve.titre }}</a></h3>
+        <p class="epreuve-description">{{ epreuve.description|truncatechars:100 }}</p>
+        <a href="{{ epreuve.get_absolute_url }}" class="more-info-btn">En savoir plus</a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
