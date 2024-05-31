@@ -1,6 +1,6 @@
-{% extends 'base.html' %}
+{% extends 'base.jinja2' %}
 {% block content %}
-<h3><a href="{% url 'liste_epreuves' %}" class="back-link">Retour à la liste des épreuves</a></h3>
+<h3><a href="{{ url('liste_epreuves') }}" class="back-link">Retour à la liste des épreuves</a></h3>
 <div class="epreuve-header">
     <h1 class="epreuve-title">{{ epreuve.titre }}</h1>
     <p class="epreuve-description">Type d’épreuve : {{ epreuve.type }}</p>
@@ -20,13 +20,13 @@
         {% for offre in offres %}
             <div>
                 <p class="offer-card">Offre : {{ offre.nom }} - Prix: {{ offre.prix }}€ - Places restantes: {{ offre.stock }}</p>
-                <a href="{% url 'panier_epreuves' epreuve.slug offre.slug %}" class="add-to-cart">Ajouter au panier</a>
+                <a href="{{ url('panier_epreuves', epreuve.slug, offre.slug) }}" class="add-to-cart">Ajouter au panier</a>
             </div>
         {% endfor %}
     {% else %}
         <p>Aucun billet disponible pour cette épreuve.</p>
     {% endif %}
 </div>
-<h4>Un doute sur les offres ? Lisez le détail <a href="{% url 'liste_offres' %}" class="back-link">ici</a>.</h4>
-<h3><a href="{% url 'liste_epreuves' %}" class="back-link">Retour à la liste des épreuves</a></h3>
+<h4>Un doute sur les offres ? Lisez le détail <a href="{{ url('liste_offres') }}" class="back-link">ici</a>.</h4>
+<h3><a href="{{ url('liste_epreuves') }}" class="back-link">Retour à la liste des épreuves</a></h3>
 {% endblock %}

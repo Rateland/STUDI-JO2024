@@ -57,7 +57,7 @@ def verifier_ticket(ticket):
 
 def envoyer_email_confirmation(ticket, destinataire):
     sujet = 'Confirmation de votre achat'
-    corps = render_to_string('store/email_confirmation.html', {'ticket': ticket})
+    corps = render_to_string('store/email_confirmation.jinja2', {'ticket': ticket})
 
     email = EmailMessage(
         sujet,
