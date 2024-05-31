@@ -26,6 +26,7 @@ Ce projet vise à fournir une plateforme de gestion des achats et des événemen
 
     5. Créer un superutilisateur
         'python manage.py createsuperuser'
+        (Dans le lore : Admin, MdP : 4dministrateur@JOF)
 
     6. Lancer le serveur de développement
         'python manage.py runserver'
