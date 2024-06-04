@@ -1,8 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-<h1 class="billet-title">L’Offre {{ billet.nom }}</h1>
+<h1 class="billet-titre">L’Offre {{ billet.nom }}</h1>
 <div class="billet-container">
     <p class="billet-description">{{ billet.description}}</p>
     <p class="billet-price">Ce billet coûte <strong>{{ billet.prix }}€</strong> l’unité.</p>

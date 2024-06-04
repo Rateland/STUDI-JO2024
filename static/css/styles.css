@@ -1,13 +1,15 @@
 /* Couleurs principales */
 :root {
-    --gtitle-color: #00ABE4; /* couleur principale */
-    --mtitle-color: #E9F1FA;
-    --simple_titre-color: #FFFFFF;
-    --highlight-color: #90509c; /* couleur pour les liens survolés et les accents */
-    --text-color: #212529;
+    --titre-h1: #000;
+    --titre-h2: #00F ;
+    --titre-h3: #F0F;
+    --titre-h4: #0F0;
+    --simple_txt : #212529;
+    --liens: #90509c;
 }
 
-/* Styles globaux */
+/* BASE.HTML */
+    /* HEADER */
 .header {
     padding: 10px;
     font-family: Tahoma, sans-serif;
@@ -16,18 +18,9 @@
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 1600px;
     margin: 0 auto;
-    padding: 10px;
-}
-
-.header-image {
-    border-radius: 50%;
-    max-width: 100px;
-    max-height: 100px;
-    object-fit: cover;
-    display: block;
-    margin: 0 auto;
+    padding: 5px;
 }
 
 .header-slider {
@@ -48,15 +41,7 @@
     background-size: cover;
     background-position: center;
 }
-  
-.header-slide:first-child {
-    animation: headerSlider 20s infinite;
-}
-  
-.header-slide:last-child {
-    animation: headerSlider 20s infinite 10s;
-}
-  
+
 @keyframes headerSlider {
     0% {
       opacity: 0;
@@ -75,11 +60,28 @@
     }
 }
 
+.header-slide:first-child {
+    animation: headerSlider 20s infinite;
+}
+  
+.header-slide:last-child {
+    animation: headerSlider 20s infinite 5s;
+}
+
 .site-title {
-    color: var(--gtitle-color);
+    color: var(--titre-h1);
     text-align: center;
     margin-bottom: 10px;
     font-family: Helvetica, sans-serif;
+}
+
+.header-image {
+    border-radius: 50%;
+    max-width: 150px;
+    max-height: 150px;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
 }
 
 .main-nav {
@@ -87,12 +89,11 @@
     justify-content: space-around;
     align-items: center;
     margin-top: 10px;
-    text-decoration-color: #323232;
     margin: 0 3px;
 }
 
 .main-nav h4 a {
-    color: var(--gtitle-color);
+    color: var(--titre-h1);
     white-space: nowrap;
 }
 
@@ -100,72 +101,8 @@
     text-decoration: underline;
 }
 
-.content {
-    margin-top: 20px;
-    min-height: calc(100% - 100px);
-    padding: 20px;
-    font-family: Tahoma, sans-serif;
-    font-size: 20px;
-}
-
-.mtitre {
-    color: var(--gtitle-color);
-    margin-bottom: 20px;
-}
-
-.simple_titre {
-    color: var(--gtitle-color);
-}
-
-.txt{
-    color: var(--text-color);
-    text-align: justify;
-    line-height: 1.6; /* Espacement entre les lignes de texte */
-    margin-bottom: 20px; /* Ajoute un espacement en bas du paragraphe */
-}
-
-/* Styles spécifiques à l'accueil */
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-.fadeIn {
-    animation: fadeIn 1s ease-in-out;
-    text-align: justify;
-    padding: 50px;
-}
-
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-  }
-
-/* Animation slideIn */
-.slideIn {
-    animation: slideIn 1s ease-out;
-}
-
-@keyframes slideIn {
-    from { transform: translateX(-100%); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
-}
-
-/* Style pour les boutons */
-.button-link h2 {
-    color: var(--highlight-color);
-    text-decoration: none;
-    transition: color 0.3s;
-}
-
-.button-link h2:hover {
-    color: var(--gtitle-color);
-}
-
-/* Styles pour les cartes (cards) */
 .card {
-    border: 1px solid var(--gtitle-color) !important;
+    border: 1px solid var(--titre-h1) !important;
     background-color: #fff;
     border-radius: 10px;
     padding: 20px;
@@ -181,79 +118,81 @@ html, body {
     transform: translateY(-5px);
 }
 
-.offers-container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    margin-bottom: 40px;
+    /* Animation slideIn */
+.slideIn {
+    animation: slideIn 1s ease-out;
 }
 
-.offer-card {
-    background-color: #f9f9f9;
-    border-radius: 8px;
+@keyframes slideIn {
+    from { transform: translateX(-100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+.simple_titre {
+    color: var(--titre-h1);
+}
+
+/* panier-link n’est pas utilisé pour le moment */
+.panier-link {
+    color:#666;
+}
+    /* FIN HEADER */
+
+    /* MAIN */
+.content {
+    margin-top: 20px;
+    min-height: calc(100% - 100px);
     padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s;
+    font-family: Tahoma, sans-serif;
+    font-size: 20px;
 }
+    /* FIN MAIN */
 
-.offer-card:hover {
-    transform: translateY(-5px);
-}
-
-.add-to-cart {
-    display: inline-block;
-    background-color: var(--mtitle-color);
-    color: var(--text-color);
-    text-decoration-color: var (--text-color);
-    padding: 10px 20px;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-}
-
-.add-to-cart:hover {
-    background-color: var(--highlight-color);
-}
-
-.back-link {
-    color: var(--highlight-color);
-    text-decoration: none;
-    margin-bottom: 20px;
-    display: inline-block;
-}
-
-.back-link:hover {
-    text-decoration: underline;
-}
-
-/* Styles pour la page de présentation de l'épreuve */
-.epreuve-header {
+    /* FOOTER */
+.footer {
+    height: 96px;
+    background-color: #FFF;
+    color: #000;
     text-align: center;
-    margin-bottom: 30px;
+    margin-top: 32px;
+    margin-bottom: 32px;
+    position: sticky;
+    bottom: 0;
 }
-
-.epreuve-title {
-    font-size: 2em;
-    margin-bottom: 10px;
-    color: var(--gtitle-color);
-}
-
-.epreuve-description {
-    font-size: 1.2em;
+    /* FIN FOOTER */
+/* MENTIONS LÉGALES */
+.fadeIn {
+    animation: fadeIn 1s ease-in-out;
     text-align: justify;
-    color: var(--text-color);
-    margin-bottom: 15px;
+    padding: 50px;
 }
 
-.epreuve-date {
-    font-size: 1.1em;
-    margin-bottom: 20px;
-    font-weight: bold;
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.titre2 {
+    color: var(--titre-h2);
+}
+
+.txt {
+    color: var(--simple_txt);
+}
+/* FIN MENTIONS LÉGALES */
+/* ACCUEIL */
+.accueil-titre {
+    color: var(--titre-h1);
+}
+        /* button-click n’est pas actif pour le moment */
+.button-click {
+    color: #666;
 }
 
 .epreuves-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px; /* Espacement entre les cartes */
+    gap: 128px; /* Espacement entre les cartes */
 }
 
 .epreuve-image {
@@ -265,33 +204,16 @@ html, body {
     margin: 20px 0;
 }
 
-.no-illustration {
-    font-size: 1em;
-    color: #666;
+.epreuve-description {
+    font-size: 1.2em;
+    text-align: justify;
+    color: var(--simple_txt);
+    margin-bottom: 15px;
 }
-
-.epreuve-link:hover {
-    text-decoration: underline;
-}
-
-/* More info button */
-.more-info-btn {
-    display: inline-block;
-    background-color: var(--gtitle-color);
-    color: #fff;
-    text-decoration: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-}
-
-.more-info-btn:hover {
-    background-color: var(--highlight-color);
-}
-
-/* Styles pour le billet */
-.billet-title {
-    color: var(--mtitle-color);
+/* FIN ACCUEIL */
+/* BILLETS */
+.billet-titre {
+    color: var(--titre-h1);
     font-size: 2em;
     margin-bottom: 20px;
 }
@@ -326,7 +248,7 @@ html, body {
 
 .billet-action {
     display: inline-block;
-    background-color: var(--gtitle-color);
+    background-color: var(--titre-h1);
     color: #fff;
     text-decoration: none;
     padding: 10px 20px;
@@ -335,22 +257,147 @@ html, body {
 }
 
 .billet-action:hover {
-    background-color: var(--highlight-color);
+    background-color: var(--liens);
 }
-/* Fin styles pour le billet */
+/* FIN BILLETS */
+/* CONFIRMATIOM_PAIEMENT */
+.titre1 {
+    color: var(--titre-h1);}
+/* FIN CONFIRMATIOM_PAIEMENT */
+/* EMAIL_CONFIRMATION */
+        /* VIDE, car pour l’instant je n’ai pas d’alternative à Google */
+/* FIN EMAIL_CONFIRMATION */
+/* EPREUVES */
+.titre3 {
+    color: var(--titre-h3);}
 
+.back-link {
+    color: var(--titre-h3);
+    text-decoration: none;
+    margin-bottom: 35px;
+    display: inline-block;}
 
-/* Footer */
-.footer {
-    height: 96px;
-    background-color: #FFF;
-    color: #000;
+.back-link:hover {
+    border: 1px solid var(--titre-h1);
+    color: var(--liens);
+    text-decoration: underline;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 5px 0;
+    margin-bottom: 5px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+    text-align: center;}
+
+.epreuve-header {
     text-align: center;
-    margin-top: 32px;
-    margin-bottom: 32px;
-    position: sticky;
-    bottom: 0;
+    margin-bottom: 30px;}
+
+.epreuve-title {
+    font-size: 2em;
+    margin-bottom: 10px;
+    color: var(--titre-h1);}
+
+.epreuve-date {
+    font-size: 1.1em;
+    margin-bottom: 20px;
+    font-weight: bold;}
+
+.no-illustration {
+    font-size: 1em;
+    color: #666;}
+
+.offers-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 40px;}
+
+.offer-card {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;}
+
+.offer-card:hover {
+    transform: translateY(-5px);}
+
+.add-to-cart {
+    display: inline-block;
+    background-color: var(--mtitle-color);
+    color: var(--simple_txt);
+    text-decoration-color: var (--simple_txt);
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s;}
+
+.add-to-cart:hover {
+    background-color: var(--liens);}
+/* FIN EPREUVES */
+/* LISTE_EPREUVES */
+.epreuve-link:hover {
+    text-decoration: underline;
 }
+.more-info-btn {
+    display: inline-block;
+    color: #000;
+    text-decoration: underline;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.more-info-btn:hover {
+    color: #fff;
+    background-color: var(--liens);
+    text-decoration: none;
+}
+/* FIN LISTE_EPREUVES */
+/* LISTE_OFFRES */
+
+/* FIN LISTE_OFFRES */
+/* PAIEMENT */
+
+/* FIN PAIEMENT */
+/* PANIER */
+
+/* FIN PANIER */
+
+
+
+.mtitre {
+    color: var(--titre-h1);
+    margin-bottom: 20px;
+}
+
+.txt{
+    color: var(--simple_txt);
+    text-align: justify;
+    line-height: 1.6; /* Espacement entre les lignes de texte */
+    margin-bottom: 20px; /* Ajoute un espacement en bas du paragraphe */
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+/* Style pour les boutons */
+.button-link h2 {
+    color: var(--liens);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.button-link h2:hover {
+    color: var(--titre-h1);
+}
+
+
+
 
 /* Infobulles */
 .messages {
@@ -375,7 +422,7 @@ html, body {
 /* Styles pour les champs du formulaire */
 .form-control {
     text-align: justify;
-    color: var(--gtitle-color);
+    color: var(--titre-h1);
     width: 100%;
     padding: 10px;
     margin: 5px 0 15px 0;
@@ -386,7 +433,7 @@ html, body {
 }
 
 .txt_form{
-    color: var(--text-color);
+    color: var(--simple_txt);
     text-align: left;
     line-height: 1.6; /* Espacement entre les lignes de texte */
     margin-bottom: 20px; /* Ajoute un espacement en bas du paragraphe */
@@ -395,7 +442,7 @@ html, body {
 /* Style pour le bouton de connexion */
 button.card {
     border: none;
-    color: var(--gtitle-color);
+    color: var(--titre-h1);
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;

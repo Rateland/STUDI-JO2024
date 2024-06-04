@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<h3><a href="{% url 'liste_epreuves' %}" class="back-link">Retour à la liste des épreuves</a></h3>
+<h3 classe="titre3"><a href="{% url 'liste_epreuves' %}" class="back-link">Retour à la liste des épreuves</a></h3>
 <div class="epreuve-header">
     <h1 class="epreuve-title">{{ epreuve.titre }}</h1>
     <p class="epreuve-description">Type d’épreuve : {{ epreuve.type }}</p>
@@ -14,7 +14,7 @@
     {% endif %}
 </div>
 
-<h2>Billets disponibles :</h2>
+<h2 class="billet-titre">Billets disponibles :</h2>
 <div class="offers-container">
     {% if offres %}
         {% for offre in offres %}
