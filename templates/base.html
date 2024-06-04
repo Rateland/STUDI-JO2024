@@ -18,11 +18,11 @@
             <h1 class="site-title">Jeux Olympiques − France 2024</h1>
                 <img src="{% static 'img/MassScott.webp' %}" alt="Image 2" class="header-image">
         <nav class="main-nav" aria-label="Navigation principale">
-            <h4><a href="{% url 'accueil' %}" class="main-nav card slideIn">Accueil</a></h4>
+            <h4><a href="{% url 'accueil' %}" class="card slideIn">Accueil</a></h4>
             {% if user.is_authenticated %}
-                <a class="main-nav card slideIn" >Bienvenue, {{ user.username }}</a>
-                <h4><a href="{% url 'logout' %}" class="main-nav card slideIn">Déconnexion</a></h4>
-                <h4><a href="{% url 'voir_panier' %}" class="panier-link main-nav card slideIn">
+                <h4><a class="card slideIn" >Bienvenue, {{ user.username }}</a></h4>
+                <h4><a href="{% url 'logout' %}" class="card slideIn">Déconnexion</a></h4>
+                <h4><a href="{% url 'voir_panier' %}" class="panier-link card slideIn">
                     {% if panier_total > 0 %}
                         {{ panier_total }} article(s) au panier
                     {% else %}

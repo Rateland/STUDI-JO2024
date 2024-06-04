@@ -2,7 +2,7 @@
 {% block content %}
 <h3 classe="titre3"><a href="{% url 'liste_epreuves' %}" class="back-link">Retour à la liste des épreuves</a></h3>
 <div class="epreuve-header">
-    <h1 class="epreuve-title">{{ epreuve.titre }}</h1>
+    <h1 class="epreuve-titre">{{ epreuve.titre }}</h1>
     <p class="epreuve-description">Type d’épreuve : {{ epreuve.type }}</p>
     <p class="epreuve-description">{{ epreuve.description }}</p>
     <p class="epreuve-description">{{ epreuve.mention }}</p>

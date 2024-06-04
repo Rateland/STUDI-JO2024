@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Toutes les offres</h1>
-<div class="epreuves-container">
+<h1 class="billet-titre">Toutes les offres</h1>
+<div class="billets-container">
     {% for billet in billets %}
     <div class="card">
-        <h1 class="billet-title">L’Offre {{ billet.nom }}</h1>
+        <h1 class="billet-titre">L’Offre {{ billet.nom }}</h1>
         <p class="billet-description">{{ billet.description}}</p>
         <p class="billet-price">Ce billet coûte <strong>{{ billet.prix }}€</strong> l’unité.</p>
     </div>

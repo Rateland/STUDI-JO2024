@@ -1,11 +1,18 @@
 /* Couleurs principales */
 :root {
-    --titre-h1: #000;
+    --titre-h1: #fff;
     --titre-h2: #00F ;
     --titre-h3: #F0F;
     --titre-h4: #0F0;
-    --simple_txt : #212529;
+    --simple_txt : #fff;
     --liens: #90509c;
+}
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #000;
+
 }
 
 /* BASE.HTML */
@@ -15,6 +22,7 @@
     font-family: Tahoma, sans-serif;
     font-size: 32px;
     text-align: center;
+    background-color: #000;
 }
 
 .container {
@@ -26,7 +34,7 @@
 .header-slider {
     position: relative;
     height: 800px; /* Ajuster la hauteur selon vos besoins */
-    z-index: -1;
+    z-index: -0.5;
 }
 
 .header-slide {
@@ -103,7 +111,7 @@
 
 .card {
     border: 1px solid var(--titre-h1) !important;
-    background-color: #fff;
+    background-color: #000;
     border-radius: 10px;
     padding: 20px;
     margin: 10px 0;
@@ -115,6 +123,8 @@
 }
 
 .card:hover {
+    background-color: #fff;
+    color: #000;
     transform: translateY(-5px);
 }
 
@@ -137,7 +147,6 @@
     color:#666;
 }
     /* FIN HEADER */
-
     /* MAIN */
 .content {
     margin-top: 20px;
@@ -157,8 +166,7 @@
     margin-top: 32px;
     margin-bottom: 32px;
     position: sticky;
-    bottom: 0;
-}
+    bottom: 0;}
     /* FIN FOOTER */
 /* MENTIONS LÉGALES */
 .fadeIn {
@@ -184,16 +192,19 @@
 .accueil-titre {
     color: var(--titre-h1);
 }
-        /* button-click n’est pas actif pour le moment */
+
 .button-click {
-    color: #666;
+    color: #fff;
+    transition: transform 0.2s;}
+
+.button-click:hover {
+    color:#000;
 }
 
 .epreuves-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 128px; /* Espacement entre les cartes */
-}
+    gap: 128px; /* Espacement entre les cartes */}
 
 .epreuve-image {
     max-width: 100%;
@@ -201,20 +212,25 @@
     border-radius: 10px;
     margin-bottom: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin: 20px 0;
-}
+    margin: 20px 0;}
 
 .epreuve-description {
     font-size: 1.2em;
     text-align: justify;
     color: var(--simple_txt);
-    margin-bottom: 15px;
-}
-/* FIN ACCUEIL */
+    margin-bottom: 15px;}
+
+.take-places {
+    color: #fff;}
+
+.take-places:hover {
+    color: #000;}
+    /* FIN ACCUEIL */
 /* BILLETS */
 .billet-titre {
     color: var(--titre-h1);
     font-size: 2em;
+    text-align: center;
     margin-bottom: 20px;
 }
 
@@ -294,10 +310,11 @@
     text-align: center;
     margin-bottom: 30px;}
 
-.epreuve-title {
+.epreuve-titre {
     font-size: 2em;
     margin-bottom: 10px;
-    color: var(--titre-h1);}
+    color: var(--titre-h1);
+    text-align: center;}
 
 .epreuve-date {
     font-size: 1.1em;
@@ -338,16 +355,14 @@
 /* FIN EPREUVES */
 /* LISTE_EPREUVES */
 .epreuve-link:hover {
-    text-decoration: underline;
-}
+    text-decoration: underline;}
 .more-info-btn {
     display: inline-block;
     color: #000;
     text-decoration: underline;
     padding: 10px 20px;
     border-radius: 5px;
-    transition: background-color 0.3s;
-}
+    transition: background-color 0.3s;}
 
 .more-info-btn:hover {
     color: #fff;
@@ -356,50 +371,20 @@
 }
 /* FIN LISTE_EPREUVES */
 /* LISTE_OFFRES */
-
+.billets-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 64px;}
 /* FIN LISTE_OFFRES */
 /* PAIEMENT */
-
+.paiement-titre {
+    font-size: 2em;
+    margin-bottom: 10px;
+    color: var(--titre-h1);
+    text-align: center;}
 /* FIN PAIEMENT */
 /* PANIER */
-
-/* FIN PANIER */
-
-
-
-.mtitre {
-    color: var(--titre-h1);
-    margin-bottom: 20px;
-}
-
-.txt{
-    color: var(--simple_txt);
-    text-align: justify;
-    line-height: 1.6; /* Espacement entre les lignes de texte */
-    margin-bottom: 20px; /* Ajoute un espacement en bas du paragraphe */
-}
-
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-  }
-
-/* Style pour les boutons */
-.button-link h2 {
-    color: var(--liens);
-    text-decoration: none;
-    transition: color 0.3s;
-}
-
-.button-link h2:hover {
-    color: var(--titre-h1);
-}
-
-
-
-
-/* Infobulles */
+        /* Infobulles */
 .messages {
     list-style: none;
     padding: 0;
@@ -418,6 +403,42 @@ html, body {
     border-color: #bce8f1;
     color: #31708f;
 }
+/* FIN PANIER */
+/* CLIENT_PAGE */
+
+/* FIN CLIENT_PAGE */
+/* LOGIN */
+
+/* FIN LOGIN */
+/* SIGNUP */
+
+/* FIN SIGNUP */
+
+
+.mtitre {
+    color: var(--titre-h1);
+    margin-bottom: 20px;
+}
+
+.txt{
+    color: var(--simple_txt);
+    text-align: justify;
+    line-height: 1.6; /* Espacement entre les lignes de texte */
+    margin-bottom: 20px; /* Ajoute un espacement en bas du paragraphe */
+}
+
+/* Style pour les boutons */
+.button-link h2 {
+    color: var(--liens);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.button-link h2:hover {
+    color: var(--titre-h1);
+}
+
+
 
 /* Styles pour les champs du formulaire */
 .form-control {

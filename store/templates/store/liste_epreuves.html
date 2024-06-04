@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Les toutes nouvelles épreuves Olympiques !</h1>
+<h1 classe="epreuve-titre">Les toutes nouvelles épreuves Olympiques !</h1>
 <div class="epreuves-container">
     {% for epreuve in epreuves %}
     <div class="card">
@@ -16,4 +16,6 @@
     </div>
     {% endfor %}
 </div>
+<h3><a href="{% url 'liste_offres' %}" class="back-link">Jeter un œil aux offres ?</a></h3>
+
 {% endblock %}
