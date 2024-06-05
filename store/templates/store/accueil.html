@@ -12,11 +12,11 @@
     En somme, les Jeux Olympiques ne sont pas juste une série d’épreuves sportives ; ils sont une célébration de l’humanité, de ses diversités et de son potentiel extraordinaire. Que vous soyez un passionné de sport, un amateur d'histoire, ou simplement en quête de moments d'exception, les Jeux Olympiques vous offrent un spectacle sans pareil, riche en émotions et en découvertes. Ne manquez pas l’occasion de faire partie de l'histoire et de vivre des émotions qui resteront gravées à jamais dans votre mémoire.</p>
 </div>
 
-<h2 class="titre2"><a href="{% url 'liste_epreuves' %}" class="button-click fadeIn">Les épreuves</a></h2>
+<h2 class="titre2 fadeIn"><a href="{% url 'liste_epreuves' %}" class="button-click">Les épreuves</a></h2>
 <div class="epreuves-container">
     {% for epreuve in epreuves %}
     <div class="card slideIn">
-        <a href="{{ epreuve.get_absolute_url }}"><h3>{{ epreuve.titre }}</h3></a>
+        <a href="{{ epreuve.get_absolute_url }}" class="button-click"><h3>{{ epreuve.titre }}</h3></a>
         {% if epreuve.illustration %}
             <img src="{{ epreuve.illustration.url }}" alt="Illustration pour {{ epreuve.titre }}" class="epreuve-image">
             {% else %}
@@ -26,20 +26,17 @@
     {% endfor %}
 </div>
 
-<h2 class="titre2"><a href="{% url 'liste_offres' %}" class="button-click">UN évènement, TROIS offres</h2>
-<div class="fadeIn">
-    <div class="epreuves-container">
-        {% for offrebillet in billets %}
-            <div class="card slideIn">
-                <a href="{{ offrebillet.get_absolute_url }}">Offre {{ offrebillet.nom }}</a>
-                <p class="epreuve-description">{{ billet.description|truncatechars:100 }}</p>
-            </div>
-        {% endfor %}
-    </div>
+<h2 class="titre2 fadeIn"><a href="{% url 'liste_offres' %}" class="button-click">UN évènement, TROIS offres</h2>
+<div class="billets-container fadeIn">
+    {% for offrebillet in billets %}
+        <div class="card slideIn">
+            <a href="{{ offrebillet.get_absolute_url }}">Offre {{ offrebillet.nom }}</a>
+        </div>
+    {% endfor %}
 </div>
 <div>
     <h2 class="fadeIn titre2">Réservez Votre Place Maintenant – Quantité et Disponibilité Limitées !</h2>
     <p class="slideIn txt">Ne manquez pas votre chance de faire partie de l'histoire des Jeux Olympiques ! Nos billets pour une journée d'accès illimité aux épreuves sont disponibles en nombre strictement limité. En raison de la forte demande et des capacités d'accueil contrôlées, nous vous encourageons à sécuriser votre place dès maintenant. Chaque moment compte et chaque billet vous rapproche de l'action olympique – une expérience à ne pas rater. Agissez rapidement pour garantir votre présence et vivre une journée inoubliable au cœur de l'émotion olympique. Achetez aujourd'hui pour éviter toute déception et rejoignez les spectateurs du monde entier dans cette célébration sportive mondiale.</p>
-    <p class="card button-click take-places">Je prends mes <a href="{% url 'liste_epreuves' %}">places</a> !</p> 
+    <p class="card button-click take-places">Je prends mes <a href="{% url 'liste_epreuves' %}" class="button-click">places</a> !</p> 
 </div>
 {% endblock %}
