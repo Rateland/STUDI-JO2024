@@ -52,7 +52,7 @@ SECRET_KEY = config('SECRET_KEY')
 SITE_URL = config('SITE_URL')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=True, cast=bool)
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = ['.herokuapp.com', '*']
 
