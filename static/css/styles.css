@@ -26,30 +26,24 @@ html, body {
     margin: 0;
     padding: 0;
     background-color: #000;
-
-}
+    font-family: Tahoma;}
 
 /* BASE.HTML */
     /* HEADER */
 .header {
     padding: 10px;
-    font-family: Tahoma, sans-serif;
     font-size: 32px;
-    text-align: center;
-    background-color: #000;
-}
+    text-align: center;}
 
 .container {
     max-width: 1600px;
     margin: 0 auto;
-    padding: 5px;
-}
+    padding: 5px;}
 
 .header-slider {
     position: relative;
     height: 800px; /* Ajuster la hauteur selon vos besoins */
-    z-index: -0.5;
-}
+    z-index: -0.5;}
 
 .header-slide {
     position: absolute;
@@ -61,8 +55,7 @@ html, body {
     opacity: 0;
     transition: opacity 2s ease-in-out;
     background-size: cover;
-    background-position: center;
-}
+    background-position: center;}
 
 @keyframes headerSlider {
     0% {
@@ -79,23 +72,19 @@ html, body {
     }
     100% {
       opacity: 0;
-    }
-}
+    }}
 
 .header-slide:first-child {
-    animation: headerSlider 20s infinite;
-}
+    animation: headerSlider 20s infinite;}
   
 .header-slide:last-child {
-    animation: headerSlider 20s infinite 5s;
-}
+    animation: headerSlider 20s infinite 5s;}
 
 .site-titre {
     color: var(--titre-h1);
     text-align: center;
     margin-bottom: 10px;
-    font-family: Helvetica, sans-serif;
-}
+    font-family: Helvetica;}
 
 .header-image {
     border-radius: 50%;
@@ -103,16 +92,14 @@ html, body {
     max-height: 150px;
     object-fit: cover;
     display: block;
-    margin: 0 auto;
-}
+    margin: 0 auto;}
 
 .main-nav {
     display: flex;
     justify-content: space-around;
     align-items: center;
     margin-top: 10px;
-    margin: 0 3px;
-}
+    margin: 0 3px;}
 
 .main-nav h4 a {
     color: var(--titre-h1);
@@ -133,44 +120,36 @@ html, body {
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     transition: transform 0.2s;
     width: 300px;
-    text-align: center;
-}
+    text-align: center;}
 
 .card:hover {
     background-color: #fff;
     color: #000;
-    transform: translateY(-5px);
-}
+    transform: translateY(-5px);}
 
     /* Animation slideIn */
 .slideIn {
-    animation: slideIn 1s ease-out;
-}
+    animation: slideIn 1s ease-out;}
 
 @keyframes slideIn {
     from { transform: translateX(-100%); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
-}
+    to { transform: translateX(0); opacity: 1; }}
 
 /* panier-link n’est pas utilisé pour le moment */
 .panier-link {
-    color:#666;
-}
+    color:#666;}
     /* FIN HEADER */
     /* MAIN */
 .content {
     margin-top: 20px;
     min-height: calc(100% - 100px);
     padding: 20px;
-    font-family: Tahoma, sans-serif;
-    font-size: 20px;
-}
+    font-size: 20px;}
     /* FIN MAIN */
 
     /* FOOTER */
 .footer {
     height: 96px;
-    background-color: #000;
     color: #fff;
     text-align: center;
     margin-top: 32px;
@@ -182,37 +161,31 @@ html, body {
 .fadeIn {
     animation: fadeIn 1s ease-in-out;
     text-align: justify;
-    padding: 50px;
-}
+    padding: 50px;}
 
 @keyframes fadeIn {
     from { opacity: 0; }
-    to { opacity: 1; }
-}
+    to { opacity: 1; }}
 
 .titre2 {
     color: var(--titre-h2);
     font-size: var(--titre-h2-font-size);
     font-weight: var(--titre-h2-font-weight);
-    margin-bottom: var(--titre-h2-margin-bottom);
-}
+    margin-bottom: var(--titre-h2-margin-bottom);}
 
 .txt {
-    color: var(--simple_txt);
-}
+    color: var(--simple_txt);}
 /* FIN MENTIONS LÉGALES */
 /* ACCUEIL */
 .accueil-titre {
-    color: var(--titre-h1);
-}
+    color: var(--titre-h1);}
 
 .button-click {
     color: var(--liens);
     transition: transform 0.05s;}
 
 .button-click:hover {
-    color:#000;
-}
+    color:#000;}
 
 .epreuves-container {
     display: grid;
@@ -273,7 +246,7 @@ html, body {
     font-size: 1.1em;
     font-weight: bold;
     margin-bottom: 30px;
-    color: var(--mtitle-color);
+    color: var(--simple_txt);
 }
 
 .billet-action {
@@ -292,7 +265,10 @@ html, body {
 /* FIN BILLETS */
 /* CONFIRMATIOM_PAIEMENT */
 .titre1 {
-    color: var(--titre-h1);}
+    color: var(--titre-h1);
+    font-size: var(--titre-h1-font-size);
+    font-weight: var(--titre-h1-font-weight);
+    margin-bottom: var(--titre-h1-margin-bottom);}
 /* FIN CONFIRMATIOM_PAIEMENT */
 /* EMAIL_CONFIRMATION */
         /* VIDE, car pour l’instant je n’ai pas d’alternative à Google */
@@ -308,7 +284,7 @@ html, body {
     display: inline-block;}
 
 .back-link:hover {
-    border: 1px solid #fff);
+    border: 1px solid #fff;
     color: #000;
     text-decoration: underline;
     background-color: #fff;
@@ -329,8 +305,7 @@ html, body {
     font-size: var(--titre-h1-font-size);
     font-weight: var(--titre-h1-font-weight);
     margin-bottom: var(--titre-h1-margin-bottom);
-    text-align: center;
-}
+    text-align: center;}
 
 .epreuve-date {
     font-size: 1.1em;
@@ -359,7 +334,7 @@ html, body {
 
 .add-to-cart {
     display: inline-block;
-    background-color: var(--mtitle-color);
+    background-color: none;
     color: var(--simple_txt);
     text-decoration-color: var (--simple_txt);
     padding: 10px 20px;
@@ -383,8 +358,7 @@ html, body {
 .more-info-btn:hover {
     color: #fff;
     background-color: var(--liens);
-    text-decoration: none;
-}
+    text-decoration: none;}
 /* FIN LISTE_EPREUVES */
 /* LISTE_OFFRES */
 .billets-container {
@@ -403,24 +377,47 @@ html, body {
         /* Infobulles */
 .messages {
     list-style: none;
-    padding: 0;
-}
+    padding: 0;}
 
 .messages li {
     margin: 5px 0;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    background-color: #f0f0f0;
-}
+    background-color: #f0f0f0;}
 
 .messages li.info {
     background-color: #d9edf7;
     border-color: #bce8f1;
-    color: #31708f;
-}
+    color: #31708f;}
 /* FIN PANIER */
 /* CLIENT_PAGE */
+.client-titre {
+    color: var(--titre-h1);
+    text-align: center;
+    margin-bottom: 10px;
+    font-family: Helvetica;}
+
+.form-section {
+        margin-bottom: 20px;}
+
+    /* Style pour le bouton de connexion */
+button.card {
+    border: none;
+    color: var(--titre-h1);
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 32px;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    cursor: pointer;}
+
+.hidden {
+        display: none;}
 
 /* FIN CLIENT_PAGE */
 /* LOGIN */
@@ -431,10 +428,7 @@ html, body {
 /* FIN SIGNUP */
 
 
-.mtitre {
-    color: var(--titre-h1);
-    margin-bottom: 20px;
-}
+
 
 .txt{
     color: var(--simple_txt);
@@ -442,19 +436,6 @@ html, body {
     line-height: 1.6; /* Espacement entre les lignes de texte */
     margin-bottom: 20px; /* Ajoute un espacement en bas du paragraphe */
 }
-
-/* Style pour les boutons */
-.button-link h2 {
-    color: var(--liens);
-    text-decoration: none;
-    transition: color 0.3s;
-}
-
-.button-link h2:hover {
-    color: var(--titre-h1);
-}
-
-
 
 /* Styles pour les champs du formulaire */
 .form-control {
@@ -476,22 +457,6 @@ html, body {
     margin-bottom: 20px; /* Ajoute un espacement en bas du paragraphe */
 }
 
-/* Style pour le bouton de connexion */
-button.card {
-    border: none;
-    color: var(--titre-h1);
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 32px;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    margin-bottom: 20px;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
 /* Style pour les alertes/messages */
 .alert {
     padding: 15px;
@@ -506,17 +471,4 @@ button.card {
 .alert-success {
     background-color: #dff0d8;
     color: #3c763d;
-}
-
-/* Classe pour les alertes d'erreur */
-.alert-error {
-    background-color: #f2dede;
-    color: #a94442;
-}
-
-.hidden {
-    display: none;
-}
-.form-section {
-    margin-bottom: 20px;
 }

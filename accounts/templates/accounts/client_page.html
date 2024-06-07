@@ -1,9 +1,10 @@
+
 {% extends 'base.html' %}
 {% block content %}
 <div class="container">
-    <h1 class="site-title">Mon Compte</h1>
+    <h1 class="client-titre">Mon Compte</h1>
     <div class="form-section">
-        <h2 class="mtitre">Madame / Monsieur</h2>
+        <h2 class="titre2">Madame / Monsieur</h2>
         <div id="name-display">
             <p>Prénom : {{ user.first_name }}</p>
             <p>Nom : {{ user.last_name }}</p>
@@ -18,7 +19,7 @@
     </div>
 
     <div class="form-section">
-        <h2 class="mtitre">Nom d’utilisateur</h2>
+        <h2 class="titre2">Nom d’utilisateur</h2>
         <div id="username-display">
             <p>Nom d’utilisateur : {{ user.username }}</p>
             <button class="button.card card" onclick="toggleEdit('username')">Modifier</button>
@@ -32,7 +33,7 @@
     </div>
 
     <div class="form-section">
-        <h2 class="mtitre">Adresse courriel</h2>
+        <h2 class="titre2">Adresse courriel</h2>
         <div id="email-display">
             <p>Adresse e-mail : {{ user.email }}</p>
             <button class="button.card card" onclick="toggleEdit('email')">Modifier</button>
@@ -46,7 +47,7 @@
     </div>
 
     <div class="form-section">
-        <h2 class="mtitre">Numéro de téléphone</h2>
+        <h2 class="titre2">Numéro de téléphone</h2>
         <div id="phone-display">
             <p>Numéro de téléphone : {{ user.phone }}</p>
             <button class="button.card card" onclick="toggleEdit('phone')">Modifier</button>
@@ -60,7 +61,7 @@
     </div>
 
     <div class="form-section">
-        <h2 class="mtitre">Mot de Passe</h2>
+        <h2 class="titre2">Mot de Passe</h2>
         <div id="password-display">
             <p>Mot de passe : ********</p>
             <button class="button.card card" onclick="toggleEdit('password')">Modifier</button>
@@ -74,7 +75,7 @@
     </div>
 
     <div>
-        <h2 class="mtitre">Mes Billets</h2>
+        <h2 class="titre2">Mes Billets</h2>
         {% if tickets %}
             <ul>
                 {% for ticket in tickets %}
