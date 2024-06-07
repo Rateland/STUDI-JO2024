@@ -10,9 +10,9 @@ jobs:
       postgres:
         image: postgres:latest
         env:
-          POSTGRES_DB: mydatabase
-          POSTGRES_USER: myuser
-          POSTGRES_PASSWORD: mypassword
+          POSTGRES_DB: bdd_site
+          POSTGRES_USER: gautier
+          POSTGRES_PASSWORD: Waldan@Hari
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -22,7 +22,7 @@ jobs:
           - 5432:5432
 
     env:
-      DATABASE_URL: postgres://myuser:mypassword@localhost/mydatabase
+      DATABASE_URL: postgres://gautier:Waldan@Hari@localhost/bdd_site
       DEBUG: 'true'
 
     steps:
