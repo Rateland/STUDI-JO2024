@@ -3,22 +3,23 @@
     --titre-h1: #fff;
     --titre-h1-font-size: 2.5em;
     --titre-h1-font-weight: bold;
-    --titre-h1-margin-bottom: 20px;
+    --titre-h1-margin-bottom: 15px;
     --titre-h2: #fff ;
     --titre-h2-font-size: 2em;
     --titre-h2-font-weight: bold;
-    --titre-h2-margin-bottom: 15px;
+    --titre-h2-margin-bottom: 10px;
     --titre-h3: #fff;
     --titre-h3-font-size: 1.8em;
     --titre-h3-font-weight: bold;
-    --titre-h3-margin-bottom: 15px
+    --titre-h3-margin-bottom: 10px
     --titre-h4: #fff;
     --titre-h4-font-size: 1.5em;
     --titre-h4-font-weight: bold;
-    --titre-h4-margin-bottom: 10px;
+    --titre-h4-margin-bottom: 5px;
     --simple_txt : #fff;
 
     --liens: #fff;
+    --liens-survol: #000
 
 }
 html, body {
@@ -124,7 +125,7 @@ html, body {
 
 .card:hover {
     background-color: #fff;
-    color: #000;
+    color: var(--liens-survol);
     transform: translateY(-5px);}
 
     /* Animation slideIn */
@@ -141,9 +142,9 @@ html, body {
     /* FIN HEADER */
     /* MAIN */
 .content {
-    margin-top: 20px;
+    margin-top: 5px;
     min-height: calc(100% - 100px);
-    padding: 20px;
+    padding: 10px;
     font-size: 20px;}
     /* FIN MAIN */
 
@@ -161,7 +162,7 @@ html, body {
 .fadeIn {
     animation: fadeIn 1s ease-in-out;
     text-align: justify;
-    padding: 50px;}
+    padding: 20px;}
 
 @keyframes fadeIn {
     from { opacity: 0; }
@@ -172,6 +173,10 @@ html, body {
     font-size: var(--titre-h2-font-size);
     font-weight: var(--titre-h2-font-weight);
     margin-bottom: var(--titre-h2-margin-bottom);}
+
+.titre2:hover {
+    color:#fff; 
+}
 
 .txt {
     color: var(--simple_txt);}
@@ -185,7 +190,7 @@ html, body {
     transition: transform 0.05s;}
 
 .button-click:hover {
-    color:#000;}
+    color:#fff;}
 
 .epreuves-container {
     display: grid;
@@ -222,11 +227,10 @@ html, body {
 
 .billet-container {
     background-color: #fff;
-    align-items: center;
-    border-radius: 10px;
-    padding: 30px;
+    align-items: left;
+    border-radius: 5px;
+    padding: 0px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
     margin-bottom: 20px;
 }
 
@@ -254,7 +258,7 @@ html, body {
     background-color: var(--titre-h1);
     color: #fff;
     text-decoration: none;
-    padding: 10px 20px;
+    padding: 5px 5px;
     border-radius: 5px;
     transition: background-color 0.3s;
 }
